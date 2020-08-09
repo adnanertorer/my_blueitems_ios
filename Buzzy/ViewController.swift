@@ -19,6 +19,7 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
     var myPeriperals:Array<MyPeripheral>!
     var uuid = ""
     var isConnect = false;
+    private let refreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
     var devices = [String:CBPeripheral]()
     
@@ -26,11 +27,45 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
         super.viewDidLoad()
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        // Add Refresh Control to Table View
+        
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Getting connected devices ...", attributes: nil)
+        if #available(iOS 10.0, *) {
+            self.tableView.refreshControl = refreshControl
+        } else {
+            self.tableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshDevices(_:)), for: .valueChanged)
         let protectPhoneCategory = UNNotificationCategory(identifier: "protectPhoneCategory", actions: [], intentIdentifiers: [], options: []);
         UNUserNotificationCenter.current().setNotificationCategories([protectPhoneCategory]);
         self.peripherals = Array<CBPeripheral>.init();
         self.myPeriperals = Array<MyPeripheral>.init();
         centralManager = CBCentralManager(delegate: self, queue: nil);
+    }
+    @objc private func refreshDevices(_ sender: Any) {
+        // Fetch Weather Data
+        let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: [infoServiceId])
+        
+        for device in connectedDevices {
+            let perpClass = MyPeripheral(name:device.name ?? "unnamed decive", perp: device, uuid: device.identifier.uuidString)
+            if myPeriperals.count == 0 {
+                myPeriperals.append(perpClass)
+            }else{
+                var status = false;
+                for per in myPeriperals{
+                    if per.uuid == perpClass.uuid{
+                        status = true
+                    }
+                }
+                if !status{
+                    myPeriperals.append(perpClass)
+                }
+            }
+        }
+        self.refreshControl.endRefreshing()
+        tableView.reloadData();
+        print(connectedDevices)
     }
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state != .poweredOn {
@@ -52,7 +87,7 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
                 let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: [infoServiceId])
                 
                 for device in connectedDevices {
-                    let perpClass = MyPeripheral(name:device.name ?? "isimsiz cihaz", perp: device, uuid: device.identifier.uuidString)
+                    let perpClass = MyPeripheral(name:device.name ?? "unnamed decive", perp: device, uuid: device.identifier.uuidString)
                     if myPeriperals.count == 0 {
                         myPeriperals.append(perpClass)
                     }else{

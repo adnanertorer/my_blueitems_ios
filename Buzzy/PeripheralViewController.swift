@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import CoreBluetooth
+import Alamofire
+import SwiftyJSON
 
 class PeripheralViewController: UIViewController, CBPeripheralDelegate, CBPeripheralManagerDelegate,
 CBCentralManagerDelegate, UITabBarDelegate {
@@ -87,7 +89,56 @@ CBCentralManagerDelegate, UITabBarDelegate {
         }
     }
     
-    func sendNotification(){
+    func Notification(signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
+        makeCall("AddNotifyRequest", signal: signal, completionHandler: completionHandler)
+    }
+
+    func makeCall(_ section: String, signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
+        let userId = UserDefaults.standard.integer(forKey: "userId");
+        let bazzyTool = BazzyTools();
+        let apiAddres = bazzyTool.getApiAddress();
+        let parameters: [String: Int] = [
+            "userId":userId,
+            "signal":signal
+        ];
+        print(parameters);
+        AF.request(apiAddres+section, method: .post, parameters: parameters as Parameters).validate().responseJSON{
+            response in
+            switch response.result{
+            case .success(let value):
+                print(value)
+                completionHandler(value as? NSDictionary, nil);
+                
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    func SendNotifyToServer(signal: Int){
+        let userId = UserDefaults.standard.integer(forKey: "userId");
+        let bazzyTool = BazzyTools();
+        let apiAddres = bazzyTool.getApiAddress();
+        let parameters: [String: Int] = [
+            "userId":userId,
+            "signal":signal
+        ];
+        print(parameters);
+        AF.request(apiAddres+"AddNotifyRequest", method: .post, parameters: parameters as Parameters, encoding:
+        JSONEncoding.default).validate().responseJSON{
+            response in
+            switch response.result{
+            case .success(let value):
+                let json = JSON(value);
+                print(json);
+                
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    /*func sendNotification(){
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             guard settings.authorizationStatus == .authorized else { return }
             let content = UNMutableNotificationContent()
@@ -105,7 +156,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
             
         }
-    }
+    }*/
     
     func convertToSignalStrength(value: Float) -> Int{
         
@@ -160,7 +211,14 @@ CBCentralManagerDelegate, UITabBarDelegate {
         signalBarView.signal = SignalBarView.SignalStrength(rawValue: convertToSignalStrength(value: Float(RSSI.intValue)))!
         self.lblSignal.text = self.rssiStr;
         if(RSSI.intValue < -85){
-            self.sendNotification()
+            //self.SendNotifyToServer(signal: RSSI.intValue);
+            self.Notification(signal: RSSI.intValue){ responseObject, error in
+                // use responseObject and error here
+
+                print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
+                return
+            };
+
         }
         self.advertise(message: self.rssiStr)
         // centralManager.stopScan()
