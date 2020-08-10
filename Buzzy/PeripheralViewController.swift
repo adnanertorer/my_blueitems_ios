@@ -16,7 +16,8 @@ class PeripheralViewController: UIViewController, CBPeripheralDelegate, CBPeriph
 CBCentralManagerDelegate, UITabBarDelegate {
     
     private var peripheral: CBPeripheral!
-    
+    var counter = 0;
+    var sumRssi = 0;
     var devices = [String:String]()
     var peripherals:Array<CBPeripheral>!
     var timer = Timer()
@@ -97,6 +98,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
         let userId = UserDefaults.standard.integer(forKey: "userId");
         let bazzyTool = BazzyTools();
         let apiAddres = bazzyTool.getApiAddress();
+        
         let parameters: [String: Int] = [
             "userId":userId,
             "signal":signal
@@ -207,17 +209,34 @@ CBCentralManagerDelegate, UITabBarDelegate {
     
     public func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         self.rssiStr = RSSI.stringValue
+        let bazzyTool = BazzyTools();
         print(self.rssiStr)
+        
         signalBarView.signal = SignalBarView.SignalStrength(rawValue: convertToSignalStrength(value: Float(RSSI.intValue)))!
         self.lblSignal.text = self.rssiStr;
         if(RSSI.intValue < -85){
-            //self.SendNotifyToServer(signal: RSSI.intValue);
-            self.Notification(signal: RSSI.intValue){ responseObject, error in
-                // use responseObject and error here
+            counter = counter+1;
+            print(counter);
+            if(counter <= bazzyTool.TotalLimit()){
+                sumRssi = sumRssi+RSSI.intValue;
+                print("-----toplam-----");
+                print(sumRssi);
+            }else{
+               
+                counter = 0;
+                let valueProximitly = sumRssi / bazzyTool.TotalLimit();
+                print("-----ortalama-----");
+                print(valueProximitly);
+                sumRssi = 0;
+                //self.SendNotifyToServer(signal: RSSI.intValue);
+                self.Notification(signal: valueProximitly){ responseObject, error in
+                    // use responseObject and error here
 
-                print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
-                return
-            };
+                    print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
+                    return
+                };
+            }
+            
 
         }
         self.advertise(message: self.rssiStr)

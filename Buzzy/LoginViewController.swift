@@ -74,9 +74,7 @@ class LoginViewController: UIViewController {
             "username":username,
             "token":token
         ];
-        print(parameters);
-        
-        AF.request(apiAddres+"/LoginUser", method: .post, parameters: parameters as Parameters).validate().responseJSON{
+        AF.request(apiAddres+"LoginUser", method: .post, parameters: parameters as Parameters).validate().responseJSON{
             response in
             switch response.result{
             case .success(let value):

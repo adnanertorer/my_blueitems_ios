@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
     var window: UIWindow?
     
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure();
@@ -168,6 +169,8 @@ class myThread: Thread, CBPeripheralDelegate
     var peripheral:CBPeripheral!
     var centralManager:CBCentralManager!
     var isConnect = false
+    var counter = 0;
+    var sumRssi = 0;
     
     override func main() {
         if !stopProtect{
@@ -190,15 +193,24 @@ class myThread: Thread, CBPeripheralDelegate
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         print(RSSI.stringValue)
         if UserDefaults.standard.double(forKey: "scanFrequency") != 0{
+            
             if(RSSI.doubleValue < UserDefaults.standard.double(forKey: "scanFrequency")){
-                print("uzakta")
-                self.Notification(signal: RSSI.intValue){ responseObject, error in
-                    // use responseObject and error here
-
-                    print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
-                    return
-                };
-
+                let bazzyTool = BazzyTools();
+                counter = counter+1;
+                if(counter <= bazzyTool.TotalLimit()){
+                    sumRssi = sumRssi+RSSI.intValue;
+                    print(sumRssi)
+                }else{
+                    counter = 0;
+                    let valueProximitly = sumRssi / bazzyTool.TotalLimit();
+                    sumRssi = 0;
+                    print("uzakta")
+                    self.Notification(signal: valueProximitly){ responseObject, error in
+                        // use responseObject and error here
+                        print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
+                        return
+                    };
+                }
                 //SendNotifyToServer(signal: RSSI.intValue);
             }
         }else{

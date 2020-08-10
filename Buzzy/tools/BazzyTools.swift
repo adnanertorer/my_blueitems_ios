@@ -16,4 +16,7 @@ class BazzyTools{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert);
         return alert;
     }
+    func TotalLimit() -> Int {
+        return 5;
+    }
 }
