@@ -312,6 +312,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
     @IBAction func startPotection(_ sender: Any) {
         if !protected {
             stopProtect = false
+            t.scanBluetoothDevice = true
             t.rssiValue = rssiStr;
             t.peripheral = selectedPeripheral;
             t.centralManager = centralManager;

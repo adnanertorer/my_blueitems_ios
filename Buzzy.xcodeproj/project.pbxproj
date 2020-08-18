@@ -13,6 +13,7 @@
 		783D8E7524DC58B9001777EB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 783D8E7424DC58B9001777EB /* StoreKit.framework */; };
 		783D8E7924DC64CA001777EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 783D8E7824DC64CA001777EB /* Foundation.framework */; };
 		783D8E7B24DC64D1001777EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 783D8E7A24DC64D1001777EB /* CoreGraphics.framework */; };
+		E418D40D24E946AC00C8DE51 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E418D40C24E946AC00C8DE51 /* AVFoundation.framework */; };
 		E419311024B74BCA0062F3D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E419310F24B74BCA0062F3D4 /* AppDelegate.swift */; };
 		E419311224B74BCA0062F3D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E419311124B74BCA0062F3D4 /* SceneDelegate.swift */; };
 		E419311424B74BCA0062F3D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E419311324B74BCA0062F3D4 /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 		E42BDEA224BDDD8800B80CBC /* ProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */; };
 		E4AB69C624DECD6E00D08A88 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB69C524DECD6E00D08A88 /* Response.swift */; };
 		E4AB69C824DFEA4300D08A88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */; };
+		E4E4B2B724EB1732001CD868 /* AudioProtectionStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */; };
 		F675443E3E7C520CFCCE6050 /* Pods_Buzzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC9DB085A203F0961046BDB /* Pods_Buzzy.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,7 @@
 		783D8E7824DC64CA001777EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		783D8E7A24DC64D1001777EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DDC9DB085A203F0961046BDB /* Pods_Buzzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Buzzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E418D40C24E946AC00C8DE51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E419310C24B74BCA0062F3D4 /* Bazzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bazzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E419310F24B74BCA0062F3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E419311124B74BCA0062F3D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectionViewController.swift; sourceTree = "<group>"; };
 		E4AB69C524DECD6E00D08A88 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProtectionStartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,7 @@
 			files = (
 				E41FF0F924B7B8980072C895 /* NetworkExtension.framework in Frameworks */,
 				783D8E7524DC58B9001777EB /* StoreKit.framework in Frameworks */,
+				E418D40D24E946AC00C8DE51 /* AVFoundation.framework in Frameworks */,
 				F675443E3E7C520CFCCE6050 /* Pods_Buzzy.framework in Frameworks */,
 				783D8E7B24DC64D1001777EB /* CoreGraphics.framework in Frameworks */,
 				783D8E7924DC64CA001777EB /* Foundation.framework in Frameworks */,
@@ -137,6 +142,7 @@
 				E41FF0F424B7B55A0072C895 /* GlobalVariables.swift */,
 				E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */,
 				78344EAA24DD4904004B78F8 /* LoginViewController.swift */,
+				E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */,
 			);
 			path = Buzzy;
 			sourceTree = "<group>";
@@ -144,6 +150,7 @@
 		E41FF0F724B7B8980072C895 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E418D40C24E946AC00C8DE51 /* AVFoundation.framework */,
 				783D8E7A24DC64D1001777EB /* CoreGraphics.framework */,
 				783D8E7824DC64CA001777EB /* Foundation.framework */,
 				783D8E7424DC58B9001777EB /* StoreKit.framework */,
@@ -282,6 +289,7 @@
 				78350E2624DE02BF00779BE5 /* BazzyTools.swift in Sources */,
 				E41FF0EF24B78CFC0072C895 /* SettingsViewController.swift in Sources */,
 				E41FF0F124B790F50072C895 /* DeviceTableViewCell.swift in Sources */,
+				E4E4B2B724EB1732001CD868 /* AudioProtectionStartViewController.swift in Sources */,
 				78344EAB24DD4904004B78F8 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

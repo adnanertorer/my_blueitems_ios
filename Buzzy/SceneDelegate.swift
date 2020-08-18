@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -40,13 +41,52 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        print("Track: foreground \(Thread.current)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            print("Track: Enter foreground DispatchQueue\(Thread.current)")
+            for index in 1...10 {
+                sleep(1)
+                let availableInputs = AVAudioSession.sharedInstance().availableInputs
+                for input in availableInputs!{
+                    if input.portType.rawValue.starts(with: "Bluetooth"){
+                        print(input.channels as Any)
+                        print(input.portName)
+                        print(input.portType)
+                        print(input.uid)
+                        print(input.dataSources ?? "");
+                    }
+                }
+                print(availableInputs as Any)
+                print("-------------------------------");
+                print("Track: After foreground DispatchQueue \(index)")
+            }
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-       
+       print("Track: Background \(Thread.current)")
+       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+           print("Track: Enter Background DispatchQueue\(Thread.current)")
+           for index in 1...10 {
+               sleep(1)
+            let availableInputs = AVAudioSession.sharedInstance().availableInputs
+            for input in availableInputs!{
+                if input.portType.rawValue.starts(with: "Bluetooth"){
+                    print(input.channels as Any)
+                    print(input.portName)
+                    print(input.portType)
+                    print(input.uid)
+                    print(input.dataSources ?? "");
+                }
+            }
+            print(availableInputs as Any)
+            print("-------------------------------");
+               print("Track: After Background DispatchQueue \(index)")
+           }
+       }
         
     }
 

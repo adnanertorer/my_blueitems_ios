@@ -12,6 +12,7 @@ import CoreBluetooth
 import Firebase
 import Alamofire
 import SwiftyJSON
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,6 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         application.registerForRemoteNotifications();
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth,.allowAirPlay,.allowBluetoothA2DP])
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {}
         
         return true
     }
@@ -132,7 +138,16 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Change this to your preferred presentation option
         completionHandler([[.alert, .sound]])
     }
-    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("Track: Background \(Thread.current)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            print("Track: Enter Background DispatchQueue\(Thread.current)")
+            for index in 1...10 {
+                sleep(1)
+                print("Track: After Background DispatchQueue \(index)")
+            }
+        }
+    }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
@@ -162,7 +177,63 @@ extension AppDelegate : MessagingDelegate {
     }
     // [END refresh_token]
 }
-
+class audioProtectionThread: Thread{
+    var counter = 0;
+    override func main() {
+        if !audioStopProtected{
+           
+            /*DispatchQueue.background(delay: 3.0, background: {
+                while audioProtected {
+                    self.counter = self.counter+1;
+                    print(self.counter);
+                    let availableInputs = AVAudioSession.sharedInstance().availableInputs
+                    for input in availableInputs!{
+                        if input.portType.rawValue.starts(with: "Bluetooth"){
+                            print(input.channels as Any)
+                            print(input.portName)
+                            print(input.portType)
+                            print(input.uid)
+                            print(input.dataSources ?? "");
+                        }
+                    }
+                    print("-------------------------------");
+                    if UserDefaults.standard.double(forKey: "notificationDelay") != 0{
+                        Thread.sleep(forTimeInterval: UserDefaults.standard.double(forKey: "notificationDelay"));
+                    }else{
+                        Thread.sleep(forTimeInterval: 4);
+                    }
+                }
+            }, completion: {
+                print("tarama bitti");
+            })*/
+           /* while audioProtected {
+                self.counter = self.counter+1;
+                print(self.counter);
+                
+                if UserDefaults.standard.double(forKey: "notificationDelay") != 0{
+                    Thread.sleep(forTimeInterval: UserDefaults.standard.double(forKey: "notificationDelay"));
+                }else{
+                    Thread.sleep(forTimeInterval: 4);
+                }
+            }*/
+        }
+    }
+    func checkAudioDevice() -> Bool {
+        var status = false;
+        let availableInputs = AVAudioSession.sharedInstance().availableInputs
+        for input in availableInputs!{
+            if input.portType.rawValue.starts(with: "Bluetooth"){
+                status = true;
+                print(input.channels as Any)
+                print(input.portName)
+                print(input.portType)
+                print(input.uid)
+                print(input.dataSources ?? "");
+            }
+        }
+        return status;
+    }
+}
 class myThread: Thread, CBPeripheralDelegate
 {
     var rssiValue = "";
@@ -170,18 +241,41 @@ class myThread: Thread, CBPeripheralDelegate
     var centralManager:CBCentralManager!
     var isConnect = false
     var counter = 0;
+    var counterAudio = 0;
     var sumRssi = 0;
+    var scanAudioDevice = false;
+    var scanBluetoothDevice = false;
     
     override func main() {
         if !stopProtect{
-            peripheral.delegate = self;
-            centralManager.connect(peripheral, options: nil);
+            if peripheral != nil{
+                peripheral.delegate = self;
+                centralManager.connect(peripheral, options: nil);
+            }
+                
+            
             while(!stopProtect) {
                 print(rssiValue);
-                if !isConnect{
-                    centralManager.connect(peripheral, options: nil)
+                if scanAudioDevice{
+                    counterAudio = counterAudio+1;
+                    print(counterAudio);
+                    
+                    if self.checkAudioDevice(){
+                        print("kulaklik bagli")
+                    }else{
+                        print("kulaklik bagli degil")
+                    }
                 }
-                peripheral.readRSSI()
+                if scanBluetoothDevice{
+                    if !isConnect{
+                        if peripheral != nil{
+                            centralManager.connect(peripheral, options: nil)
+                        }
+                        peripheral.readRSSI()
+                        
+                    }
+                }
+                
                 if UserDefaults.standard.double(forKey: "notificationDelay") != 0{
                     Thread.sleep(forTimeInterval: UserDefaults.standard.double(forKey: "notificationDelay"));
                 }else{
@@ -190,6 +284,22 @@ class myThread: Thread, CBPeripheralDelegate
             }
         }
     }
+    func checkAudioDevice() -> Bool {
+        var status = false;
+        let availableInputs = AVAudioSession.sharedInstance().availableInputs
+        for input in availableInputs!{
+            if input.portType.rawValue.starts(with: "Bluetooth"){
+                status = true;
+                print(input.channels as Any)
+                print(input.portName)
+                print(input.portType)
+                print(input.uid)
+                print(input.dataSources ?? "");
+            }
+        }
+        return status;
+    }
+    
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         print(RSSI.stringValue)
         if UserDefaults.standard.double(forKey: "scanFrequency") != 0{

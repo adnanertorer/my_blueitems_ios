@@ -26,8 +26,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personalhotspot" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NYF-wp-lJl">
-                                                    <rect key="frame" x="330" y="7" width="35" height="30.333333333333336"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker.3.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NYF-wp-lJl">
+                                                    <rect key="frame" x="330" y="5" width="35" height="33.666666666666664"/>
                                                     <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="FSJ-G7-IhK"/>
@@ -77,7 +77,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="O4G-pQ-JLD"/>
                                 </connections>
                             </tabBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KEEP YOUR SMART DECIVE CLOSE!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hww-lU-5sv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KEEP YOUR SMART DEVICE CLOSE!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hww-lU-5sv">
                                 <rect key="frame" x="0.0" y="700.33333333333337" width="375" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -308,6 +308,82 @@
             </objects>
             <point key="canvasLocation" x="1720.8" y="818.7192118226601"/>
         </scene>
+        <!--Audio Protection Start View Controller-->
+        <scene sceneID="brH-Lh-Ela">
+            <objects>
+                <viewController storyboardIdentifier="audioProtectionView" id="ffT-Jw-dfc" customClass="AudioProtectionStartViewController" customModule="Bazzy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PJu-sG-nxl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker.3.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TTR-mI-rQK">
+                                <rect key="frame" x="112" y="140.66666666666666" width="151" height="114"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="151" id="FQ2-zX-8IN"/>
+                                    <constraint firstAttribute="height" constant="115.33" id="gcF-QS-IKp"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ed6-ca-7kT">
+                                <rect key="frame" x="16" y="337" width="343" height="19"/>
+                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="17"/>
+                                <state key="normal" title=" Start Protection" image="eye" catalog="system">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="startPotection:" destination="Oza-oi-MxP" eventType="touchUpInside" id="B43-Rn-6Jn"/>
+                                    <action selector="startProtection:" destination="ffT-Jw-dfc" eventType="touchUpInside" id="iJt-kq-KpM"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you start the protection, a notification will be sent to you if your device is disconnected." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNx-bd-u5f">
+                                <rect key="frame" x="16" y="406" width="343" height="31"/>
+                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3IS-Ek-JJw">
+                                <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="x5i-D3-7ba"/>
+                                </constraints>
+                                <items>
+                                    <tabBarItem title="Device List" image="personalhotspot" catalog="system" id="2bn-N0-m8x"/>
+                                    <tabBarItem tag="1" title="Selected Device" image="eye" catalog="system" id="262-3m-if2"/>
+                                    <tabBarItem tag="2" title="Settings" image="ellipsis.circle" catalog="system" id="9Nv-2O-d2W"/>
+                                    <tabBarItem tag="3" title="Contact" image="message" catalog="system" id="7U0-fd-n7K"/>
+                                </items>
+                                <color key="selectedImageTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ffT-Jw-dfc" id="b9O-19-Izt"/>
+                                </connections>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ed6-ca-7kT" firstAttribute="leading" secondItem="bIS-aY-L7k" secondAttribute="leading" constant="16" id="7xg-Z7-hcv"/>
+                            <constraint firstItem="3IS-Ek-JJw" firstAttribute="trailing" secondItem="bIS-aY-L7k" secondAttribute="trailing" id="GTJ-mE-OQE"/>
+                            <constraint firstItem="jNx-bd-u5f" firstAttribute="leading" secondItem="bIS-aY-L7k" secondAttribute="leading" constant="16" id="Jpm-CN-PLE"/>
+                            <constraint firstItem="3IS-Ek-JJw" firstAttribute="leading" secondItem="bIS-aY-L7k" secondAttribute="leading" id="NK5-Wb-5Lz"/>
+                            <constraint firstItem="3IS-Ek-JJw" firstAttribute="bottom" secondItem="bIS-aY-L7k" secondAttribute="bottom" id="SFF-V6-ve8"/>
+                            <constraint firstItem="bIS-aY-L7k" firstAttribute="trailing" secondItem="jNx-bd-u5f" secondAttribute="trailing" constant="16" id="aLE-lG-WJx"/>
+                            <constraint firstItem="jNx-bd-u5f" firstAttribute="top" secondItem="Ed6-ca-7kT" secondAttribute="bottom" constant="50" id="exD-oq-l9i"/>
+                            <constraint firstItem="Ed6-ca-7kT" firstAttribute="top" secondItem="TTR-mI-rQK" secondAttribute="bottom" constant="81.666666666666686" id="kUW-UR-5DR"/>
+                            <constraint firstItem="bIS-aY-L7k" firstAttribute="trailing" secondItem="Ed6-ca-7kT" secondAttribute="trailing" constant="16" id="mrr-xD-cwg"/>
+                            <constraint firstItem="TTR-mI-rQK" firstAttribute="centerX" secondItem="PJu-sG-nxl" secondAttribute="centerX" id="po4-Kj-9mH"/>
+                            <constraint firstItem="TTR-mI-rQK" firstAttribute="top" secondItem="bIS-aY-L7k" secondAttribute="top" constant="96" id="qlQ-8U-rV6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bIS-aY-L7k"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnStartProtection" destination="Ed6-ca-7kT" id="rOt-ta-5E1"/>
+                        <outlet property="imgAudio" destination="TTR-mI-rQK" id="reh-ux-YQL"/>
+                        <outlet property="txtDescription" destination="jNx-bd-u5f" id="gM8-G0-1US"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sRR-OC-L5w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2519" y="819"/>
+        </scene>
         <!--Peripheral View Controller-->
         <scene sceneID="6Es-Ac-hWe">
             <objects>
@@ -480,5 +556,6 @@
         <image name="eye" catalog="system" width="128" height="81"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="personalhotspot" catalog="system" width="128" height="75"/>
+        <image name="speaker.3.fill" catalog="system" width="128" height="90"/>
     </resources>
 </document>
