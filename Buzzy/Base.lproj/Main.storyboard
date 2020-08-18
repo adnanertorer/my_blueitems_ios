@@ -203,24 +203,61 @@
                                     <outlet property="delegate" destination="UJr-6x-jhu" id="Jn0-j5-npZ"/>
                                 </connections>
                             </tabBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROTECTED BLE DEVICES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvV-aN-tB4">
+                                <rect key="frame" x="16" y="223.66666666666666" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-Qb-C6f">
+                                <rect key="frame" x="16" y="252.66666666666663" width="343" height="194"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="194" id="n5M-Hy-ckg"/>
+                                </constraints>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROTECTED HEADSETS / iPODS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDe-SW-uUi">
+                                <rect key="frame" x="16" y="454.66666666666669" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0lA-0s-m3u">
+                                <rect key="frame" x="16" y="483.66666666666674" width="343" height="194"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="194" id="UAk-qa-u3g"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="msr-fM-dmA" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="4XI-y4-lDK"/>
                             <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="Vwz-TS-h4H" secondAttribute="trailing" constant="16" id="4hn-fO-3Ec"/>
+                            <constraint firstItem="nNh-Qb-C6f" firstAttribute="top" secondItem="YvV-aN-tB4" secondAttribute="bottom" constant="8" id="5bw-8i-Mcb"/>
                             <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="IiE-3s-65i" secondAttribute="trailing" constant="16" id="7pp-6g-4NR"/>
                             <constraint firstItem="dlf-2O-BsK" firstAttribute="trailing" secondItem="igX-b4-Mxl" secondAttribute="trailing" id="8C6-bq-F6h"/>
                             <constraint firstItem="n81-9y-jMC" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="D8M-gu-Wlx"/>
+                            <constraint firstItem="0lA-0s-m3u" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="IvB-z9-BQh"/>
                             <constraint firstItem="IiE-3s-65i" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="LJ7-ZH-7EX"/>
+                            <constraint firstItem="YvV-aN-tB4" firstAttribute="top" secondItem="msr-fM-dmA" secondAttribute="bottom" constant="16" id="MX9-N3-G7X"/>
+                            <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="nNh-Qb-C6f" secondAttribute="trailing" constant="16" id="NpY-aN-J09"/>
                             <constraint firstItem="msr-fM-dmA" firstAttribute="top" secondItem="IiE-3s-65i" secondAttribute="bottom" constant="16" id="O0u-Ix-rWH"/>
                             <constraint firstItem="dlf-2O-BsK" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" id="O2Y-j2-S0M"/>
                             <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="msr-fM-dmA" secondAttribute="trailing" constant="16" id="VEG-EV-qQz"/>
+                            <constraint firstItem="nNh-Qb-C6f" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="VPo-5z-aHb"/>
                             <constraint firstItem="dlf-2O-BsK" firstAttribute="bottom" secondItem="igX-b4-Mxl" secondAttribute="bottom" id="VxZ-6a-mqX"/>
+                            <constraint firstItem="CDe-SW-uUi" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="WaU-OX-gbF"/>
+                            <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="YvV-aN-tB4" secondAttribute="trailing" constant="16" id="Wu6-xr-Vu1"/>
+                            <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="CDe-SW-uUi" secondAttribute="trailing" constant="16" id="bKS-eb-mi0"/>
                             <constraint firstItem="IiE-3s-65i" firstAttribute="top" secondItem="n81-9y-jMC" secondAttribute="bottom" constant="20" id="cQc-M5-8XO"/>
                             <constraint firstItem="n81-9y-jMC" firstAttribute="top" secondItem="Vwz-TS-h4H" secondAttribute="bottom" constant="16" id="fPz-mG-cFR"/>
+                            <constraint firstItem="YvV-aN-tB4" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="kqs-KL-jGT"/>
                             <constraint firstItem="Vwz-TS-h4H" firstAttribute="top" secondItem="igX-b4-Mxl" secondAttribute="top" constant="20" id="mjD-FX-evV"/>
                             <constraint firstItem="Vwz-TS-h4H" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="pPA-lf-hts"/>
+                            <constraint firstItem="0lA-0s-m3u" firstAttribute="top" secondItem="CDe-SW-uUi" secondAttribute="bottom" constant="8" id="r8w-1o-nXf"/>
                             <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="n81-9y-jMC" secondAttribute="trailing" constant="16" id="uc4-yc-F4d"/>
+                            <constraint firstItem="CDe-SW-uUi" firstAttribute="top" secondItem="nNh-Qb-C6f" secondAttribute="bottom" constant="8" id="yvh-A1-6ga"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="igX-b4-Mxl"/>
                     </view>
@@ -231,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s0q-ny-hTK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="905" y="820"/>
+            <point key="canvasLocation" x="904.79999999999995" y="819.45812807881782"/>
         </scene>
         <!--Send Mail View Controller-->
         <scene sceneID="RxC-eR-VNm">

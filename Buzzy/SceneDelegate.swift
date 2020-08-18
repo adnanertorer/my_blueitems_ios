@@ -87,7 +87,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                print("Track: After Background DispatchQueue \(index)")
            }
        }
-        
     }
 
 
