@@ -27,6 +27,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
     var isConnect = false;
     var rssiStr = ""
     var isFirstConnection = true
+    var mySelectedCustomPeripheral: MyPeripheral!
     
     let t = myThread();
     
@@ -320,6 +321,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
             protected = true
             lblDescription.text = "Your device is protected. You can throw the app into the background. But do not close the application.";
             self.btnProtected.isHidden = true
+            deviceArray.append(mySelectedCustomPeripheral);
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
             self.show(vc!, sender: nil)
         }else{

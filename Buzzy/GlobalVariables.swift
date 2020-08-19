@@ -36,3 +36,5 @@ var protected = false
 var stopProtect = false
 var audioProtected = false
 var audioStopProtected = false
+
+var deviceArray:[MyPeripheral] = [];

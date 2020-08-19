@@ -11,48 +11,17 @@ import AVFoundation
 
 class AudioProtectionStartViewController: UIViewController {
 
-    let t = audioProtectionThread();
-    var timer = Timer()
-    var counter = 0;
+    
+    var mySelectedCustomPeripheral: MyPeripheral!
     @IBOutlet weak var btnStartProtection: UIButton!
     @IBAction func startProtection(_ sender: Any) {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth,.allowAirPlay,.allowBluetoothA2DP])
-            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {}
-        DispatchQueue.global(qos: .background).async {
-            print("This is run on the background queue")
-            while true{
-               self.counter = self.counter+1;
-               print(self.counter);
-               print("Timer Fired")
-                if UserDefaults.standard.double(forKey: "notificationDelay") != 0{
-                    Thread.sleep(forTimeInterval: UserDefaults.standard.double(forKey: "notificationDelay"));
-                }else{
-                    Thread.sleep(forTimeInterval: 4);
-                }
-            }
-            DispatchQueue.main.async {
-                print("This is run on the main queue, after the previous code in outer block")
-            }
-        }
-        
-        /*let dispatchQueue = DispatchQueue(label: "QueueIdentification", qos: .background)
-        dispatchQueue.async{
-            while true{
-               self.counter = self.counter+1;
-               print(self.counter);
-               print("Timer Fired")
-                if UserDefaults.standard.double(forKey: "notificationDelay") != 0{
-                    Thread.sleep(forTimeInterval: UserDefaults.standard.double(forKey: "notificationDelay"));
-                }else{
-                    Thread.sleep(forTimeInterval: 4);
-                }
-            }
-        }
-        self.txtDescription.text = "Your device is protected. You can throw the app into the background. But do not close the application.";
-        self.btnStartProtection.isHidden = true*/
-        
+        deviceArray.append(mySelectedCustomPeripheral);
+        audioProtected = true;
+        let alert = UIAlertController(title: "Buzzy", message: "Device added to protected device list. ", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil);
+        }))
+        self.present(alert, animated: true, completion: nil);
     }
     @IBOutlet weak var imgAudio: UIImageView!
     @IBOutlet weak var txtDescription: UILabel!
@@ -60,18 +29,6 @@ class AudioProtectionStartViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    @objc func delayedAction() {
-        let availableInputs = AVAudioSession.sharedInstance().availableInputs
-         for input in availableInputs!{
-            if input.portType.rawValue.starts(with: "Bluetooth"){
-                print(input.channels as Any)
-                print(input.portName)
-                print(input.portType)
-                print(input.uid)
-                print(input.dataSources ?? "");
-            }
-        }
     }
 
     /*

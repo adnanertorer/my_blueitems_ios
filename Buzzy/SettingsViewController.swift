@@ -12,6 +12,10 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
     
     @IBOutlet weak var sliderNotificationDelay: UISlider!
     @IBOutlet weak var sliderScanFrequency: UISlider!
+    @IBOutlet weak var tableViewBleDevices: UITableView!
+    @IBOutlet weak var tableViewHeadsetsIpods: UITableView!
+    var bleDevices:[String] = []
+    var audioDevices:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +25,16 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         if UserDefaults.standard.double(forKey: "scanFrequency") != 0{
             self.sliderScanFrequency.value = Float(UserDefaults.standard.double(forKey:"scanFrequency"))
         }
+        for item in deviceArray{
+            if item.type == "Peripheral"{
+                self.bleDevices.append(item.peripheralName!);
+            }
+            if item.type == "Audio"{
+                self.audioDevices.append(item.peripheralName!);
+            }
+        }
+        tableViewBleDevices.reloadData();
+        tableViewHeadsetsIpods.reloadData();
     }
     
     @IBAction func frequencyChanged(_ sender: Any) {
@@ -66,4 +80,28 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         }
     }
     
+}
+extension SettingsViewController: UITableViewDataSource,
+UITableViewDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView.tag == 1{
+            return self.bleDevices.count;
+        }else{
+            return self.audioDevices.count;
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView.tag == 1{
+            let cell:BleTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as! BleTableViewCell;
+            let deviceName = Array(self.bleDevices)[indexPath.row]
+            cell.lblDeviceName.text = deviceName;
+            return cell;
+        }else{
+            let cell:AudioTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellAudio")! as! AudioTableViewCell;
+            let deviceName = Array(self.audioDevices)[indexPath.row]
+            cell.lblDeviceName.text = deviceName;
+            return cell;
+        }
+    }
 }

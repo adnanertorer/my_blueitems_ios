@@ -28,6 +28,8 @@
 		E41FF0F524B7B55A0072C895 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FF0F424B7B55A0072C895 /* GlobalVariables.swift */; };
 		E41FF0F924B7B8980072C895 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41FF0F824B7B8980072C895 /* NetworkExtension.framework */; };
 		E42BDEA224BDDD8800B80CBC /* ProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */; };
+		E44D835324ED5422004EB3AA /* BleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D835224ED5422004EB3AA /* BleTableViewCell.swift */; };
+		E44D835524ED544D004EB3AA /* AudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D835424ED544D004EB3AA /* AudioTableViewCell.swift */; };
 		E4AB69C624DECD6E00D08A88 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB69C524DECD6E00D08A88 /* Response.swift */; };
 		E4AB69C824DFEA4300D08A88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */; };
 		E4E4B2B724EB1732001CD868 /* AudioProtectionStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */; };
@@ -62,6 +64,8 @@
 		E41FF0F624B7B8970072C895 /* Buzzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Buzzy.entitlements; sourceTree = "<group>"; };
 		E41FF0F824B7B8980072C895 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectionViewController.swift; sourceTree = "<group>"; };
+		E44D835224ED5422004EB3AA /* BleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleTableViewCell.swift; sourceTree = "<group>"; };
+		E44D835424ED544D004EB3AA /* AudioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTableViewCell.swift; sourceTree = "<group>"; };
 		E4AB69C524DECD6E00D08A88 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProtectionStartViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */,
 				78344EAA24DD4904004B78F8 /* LoginViewController.swift */,
 				E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */,
+				E44D835224ED5422004EB3AA /* BleTableViewCell.swift */,
+				E44D835424ED544D004EB3AA /* AudioTableViewCell.swift */,
 			);
 			path = Buzzy;
 			sourceTree = "<group>";
@@ -283,12 +289,14 @@
 				E41FF0F524B7B55A0072C895 /* GlobalVariables.swift in Sources */,
 				E41FF0F324B7AD2A0072C895 /* SendMailViewController.swift in Sources */,
 				E4AB69C624DECD6E00D08A88 /* Response.swift in Sources */,
+				E44D835324ED5422004EB3AA /* BleTableViewCell.swift in Sources */,
 				E42BDEA224BDDD8800B80CBC /* ProtectionViewController.swift in Sources */,
 				E419311024B74BCA0062F3D4 /* AppDelegate.swift in Sources */,
 				E419311224B74BCA0062F3D4 /* SceneDelegate.swift in Sources */,
 				78350E2624DE02BF00779BE5 /* BazzyTools.swift in Sources */,
 				E41FF0EF24B78CFC0072C895 /* SettingsViewController.swift in Sources */,
 				E41FF0F124B790F50072C895 /* DeviceTableViewCell.swift in Sources */,
+				E44D835524ED544D004EB3AA /* AudioTableViewCell.swift in Sources */,
 				E4E4B2B724EB1732001CD868 /* AudioProtectionStartViewController.swift in Sources */,
 				78344EAB24DD4904004B78F8 /* LoginViewController.swift in Sources */,
 			);

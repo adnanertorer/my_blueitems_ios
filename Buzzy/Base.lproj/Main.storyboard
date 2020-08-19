@@ -209,12 +209,42 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-Qb-C6f">
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-Qb-C6f">
                                 <rect key="frame" x="16" y="252.66666666666663" width="343" height="194"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="194" id="n5M-Hy-ckg"/>
                                 </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="MA1-5l-BOy" customClass="BleTableViewCell" customModule="Bazzy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MA1-5l-BOy" id="SJr-m2-iJb">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K95-Ty-W1K">
+                                                    <rect key="frame" x="15" y="11.333333333333336" width="313" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="K95-Ty-W1K" firstAttribute="centerY" secondItem="SJr-m2-iJb" secondAttribute="centerY" id="DFQ-7C-l9i"/>
+                                                <constraint firstItem="K95-Ty-W1K" firstAttribute="trailing" secondItem="SJr-m2-iJb" secondAttribute="trailingMargin" id="Ix4-ho-6vz"/>
+                                                <constraint firstItem="K95-Ty-W1K" firstAttribute="leading" secondItem="SJr-m2-iJb" secondAttribute="leadingMargin" id="vEn-15-Tce"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblDeviceName" destination="K95-Ty-W1K" id="5VX-C6-O54"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="UJr-6x-jhu" id="zk9-gT-bo2"/>
+                                    <outlet property="delegate" destination="UJr-6x-jhu" id="z8d-XP-Y6O"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROTECTED HEADSETS / iPODS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDe-SW-uUi">
                                 <rect key="frame" x="16" y="454.66666666666669" width="343" height="21"/>
@@ -222,12 +252,42 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0lA-0s-m3u">
+                            <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0lA-0s-m3u">
                                 <rect key="frame" x="16" y="483.66666666666674" width="343" height="194"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="194" id="UAk-qa-u3g"/>
                                 </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellAudio" id="Mfh-xL-6mc" customClass="AudioTableViewCell" customModule="Bazzy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mfh-xL-6mc" id="IhK-ii-d5Z">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2P-2M-kEE">
+                                                    <rect key="frame" x="0.0" y="11.333333333333336" width="343" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Q2P-2M-kEE" firstAttribute="centerY" secondItem="IhK-ii-d5Z" secondAttribute="centerY" id="O5p-iL-1Mn"/>
+                                                <constraint firstAttribute="trailing" secondItem="Q2P-2M-kEE" secondAttribute="trailing" id="pVx-i8-mo1"/>
+                                                <constraint firstItem="Q2P-2M-kEE" firstAttribute="leading" secondItem="IhK-ii-d5Z" secondAttribute="leading" id="xmf-LQ-NGE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblDeviceName" destination="Q2P-2M-kEE" id="kh2-PD-so4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="UJr-6x-jhu" id="Pxh-zf-nRg"/>
+                                    <outlet property="delegate" destination="UJr-6x-jhu" id="2lh-L7-eu2"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -238,6 +298,7 @@
                             <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="IiE-3s-65i" secondAttribute="trailing" constant="16" id="7pp-6g-4NR"/>
                             <constraint firstItem="dlf-2O-BsK" firstAttribute="trailing" secondItem="igX-b4-Mxl" secondAttribute="trailing" id="8C6-bq-F6h"/>
                             <constraint firstItem="n81-9y-jMC" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="D8M-gu-Wlx"/>
+                            <constraint firstItem="igX-b4-Mxl" firstAttribute="trailing" secondItem="0lA-0s-m3u" secondAttribute="trailing" constant="16" id="Eq5-Bf-Jd6"/>
                             <constraint firstItem="0lA-0s-m3u" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="IvB-z9-BQh"/>
                             <constraint firstItem="IiE-3s-65i" firstAttribute="leading" secondItem="igX-b4-Mxl" secondAttribute="leading" constant="16" id="LJ7-ZH-7EX"/>
                             <constraint firstItem="YvV-aN-tB4" firstAttribute="top" secondItem="msr-fM-dmA" secondAttribute="bottom" constant="16" id="MX9-N3-G7X"/>
@@ -264,6 +325,8 @@
                     <connections>
                         <outlet property="sliderNotificationDelay" destination="n81-9y-jMC" id="7eD-cS-2CY"/>
                         <outlet property="sliderScanFrequency" destination="msr-fM-dmA" id="4Fz-D8-4g9"/>
+                        <outlet property="tableViewBleDevices" destination="nNh-Qb-C6f" id="qPs-ra-F3J"/>
+                        <outlet property="tableViewHeadsetsIpods" destination="0lA-0s-m3u" id="luz-ox-7Rb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s0q-ny-hTK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -11,10 +11,7 @@ import CoreBluetooth
 import UserNotifications
 import AVFoundation
 
-class ViewController: UIViewController, UITableViewDataSource,
-UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDelegate  {
-    
-    
+class ViewController: UIViewController{
     private var centralManager: CBCentralManager!
     private var peripheral: CBPeripheral!
     var peripherals:Array<CBPeripheral>!
@@ -74,7 +71,6 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
                 print(input.dataSources ?? "");
             }
             
-            
         }
         
         print(availableInputs as Any);
@@ -98,9 +94,55 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
         }
         self.refreshControl.endRefreshing();
         tableView.reloadData();
-        
     }
-    
+}
+
+extension ViewController: UITableViewDataSource,
+UITableViewDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           return myPeriperals.count;
+       }
+       
+       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+           let cell:DeviceTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as! DeviceTableViewCell
+           //let peripheral = Array(myPeriperals)[indexPath.row].peripheral;
+           
+           var deviceName = "unnamed device";
+           if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
+               deviceName = Array(myPeriperals)[indexPath.row].peripheral?.name ?? "unnamed device";
+               let imageBluetooth = UIImage(systemName: "personalhotspot")
+               cell.imgDeviceConnection.image = imageBluetooth;
+               cell.imgDeviceConnection.tintColor = UIColor.green;
+           }
+           if Array(myPeriperals)[indexPath.row].type == "Audio"{
+               deviceName = Array(myPeriperals)[indexPath.row].peripheralName;
+               let imageAudio = UIImage(systemName: "speaker.3.fill")
+               cell.imgDeviceConnection.image = imageAudio;
+               cell.imgDeviceConnection.tintColor = UIColor.green;
+           }
+           
+           cell.lblDeviceName.text = deviceName;
+           
+           return cell;
+       }
+       
+       func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           centralManager.stopScan();
+           if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
+               selectedPeripheral = Array(myPeriperals)[indexPath.row].peripheral;
+               uuid = selectedPeripheral.identifier.uuidString;
+               let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+               vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
+               self.show(vc!, sender: nil)
+           }else{
+               let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
+               vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
+               self.show(vc!, sender: nil)
+           }
+       }
+}
+
+extension ViewController:CBPeripheralDelegate, CBCentralManagerDelegate{
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state != .poweredOn {
         } else {
@@ -205,48 +247,9 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
         tableView.reloadData();
         // }
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPeriperals.count;
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:DeviceTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as! DeviceTableViewCell
-        //let peripheral = Array(myPeriperals)[indexPath.row].peripheral;
-        
-        var deviceName = "unnamed device";
-        if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
-            deviceName = Array(myPeriperals)[indexPath.row].peripheral?.name ?? "unnamed device";
-            let imageBluetooth = UIImage(systemName: "personalhotspot")
-            cell.imgDeviceConnection.image = imageBluetooth;
-            cell.imgDeviceConnection.tintColor = UIColor.green;
-        }
-        if Array(myPeriperals)[indexPath.row].type == "Audio"{
-            deviceName = Array(myPeriperals)[indexPath.row].peripheralName;
-            let imageAudio = UIImage(systemName: "speaker.3.fill")
-            cell.imgDeviceConnection.image = imageAudio;
-            cell.imgDeviceConnection.tintColor = UIColor.green;
-        }
-        
-        cell.lblDeviceName.text = deviceName;
-        
-        return cell;
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        centralManager.stopScan();
-        if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
-            selectedPeripheral = Array(myPeriperals)[indexPath.row].peripheral;
-            uuid = selectedPeripheral.identifier.uuidString;
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
-            self.show(vc!, sender: nil)
-        }else{
-            //audioProtectionView
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
-            self.show(vc!, sender: nil)
-        }
-    }
-    
+}
+
+extension ViewController:UITabBarDelegate{
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         if item.tag == 1{
@@ -276,7 +279,6 @@ UITableViewDelegate, CBPeripheralDelegate, CBCentralManagerDelegate, UITabBarDel
             self.show(vc!, sender: nil)
         }
     }
-    
 }
 
 class MyPeripheral{
