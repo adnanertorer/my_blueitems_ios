@@ -11,6 +11,7 @@ import CoreBluetooth
 import UserNotifications
 import AVFoundation
 
+
 class ViewController: UIViewController{
     private var centralManager: CBCentralManager!
     private var peripheral: CBPeripheral!
@@ -22,10 +23,12 @@ class ViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     var devices = [String:CBPeripheral]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+         // MARK: - AddRefreshControl
         // Add Refresh Control to Table View
         refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Getting connected devices ...", attributes: nil)
@@ -34,19 +37,28 @@ class ViewController: UIViewController{
         } else {
             self.tableView.addSubview(refreshControl)
         }
+        refreshControl.addTarget(self, action: #selector(refreshDevices(_:)), for: .valueChanged)
+        
+        // MARK: -AudioSessionConfiguration
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth,.allowAirPlay,.allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
         } catch {}
-        refreshControl.addTarget(self, action: #selector(refreshDevices(_:)), for: .valueChanged)
+        
+        
         let protectPhoneCategory = UNNotificationCategory(identifier: "protectPhoneCategory", actions: [], intentIdentifiers: [], options: []);
         UNUserNotificationCenter.current().setNotificationCategories([protectPhoneCategory]);
+        
+        // MARK: -InitConfig
         self.peripherals = Array<CBPeripheral>.init();
         self.myPeriperals = Array<MyPeripheral>.init();
         centralManager = CBCentralManager(delegate: self, queue: nil);
     }
     
+    // MARK: -RefreshDevice
     @objc private func refreshDevices(_ sender: Any) {
+        
+        // MARK: -GetAudioDevices
         let availableInputs = AVAudioSession.sharedInstance().availableInputs
         for input in availableInputs!{
             if input.portType.rawValue.starts(with: "Bluetooth"){
@@ -74,6 +86,9 @@ class ViewController: UIViewController{
         }
         
         print(availableInputs as Any);
+        
+        // MARK: -GetBluetoothConnectionDevices
+        
         let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: [infoServiceId])
         print(connectedDevices);
         for device in connectedDevices {
@@ -108,12 +123,14 @@ UITableViewDelegate{
            //let peripheral = Array(myPeriperals)[indexPath.row].peripheral;
            
            var deviceName = "unnamed device";
+        // MARK: -BluetoothDeviceCell
            if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
                deviceName = Array(myPeriperals)[indexPath.row].peripheral?.name ?? "unnamed device";
                let imageBluetooth = UIImage(systemName: "personalhotspot")
                cell.imgDeviceConnection.image = imageBluetooth;
                cell.imgDeviceConnection.tintColor = UIColor.green;
            }
+        // MARK: -AudiDeviceCell
            if Array(myPeriperals)[indexPath.row].type == "Audio"{
                deviceName = Array(myPeriperals)[indexPath.row].peripheralName;
                let imageAudio = UIImage(systemName: "speaker.3.fill")
@@ -128,6 +145,7 @@ UITableViewDelegate{
        
        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            centralManager.stopScan();
+        // MARK: -SelectBluetoothDevice
            if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
                selectedPeripheral = Array(myPeriperals)[indexPath.row].peripheral;
                uuid = selectedPeripheral.identifier.uuidString;
@@ -135,6 +153,7 @@ UITableViewDelegate{
                vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
                self.show(vc!, sender: nil)
            }else{
+            // MARK: -SelectAudioDevice
                let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
                vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
                self.show(vc!, sender: nil)
@@ -159,7 +178,7 @@ extension ViewController:CBPeripheralDelegate, CBCentralManagerDelegate{
                 
                 
             }else{
-               
+               // MARK: -GetAudioDevices
                 let availableInputs = AVAudioSession.sharedInstance().availableInputs
                 for input in availableInputs!{
                     if input.portType.rawValue.starts(with: "Bluetooth"){
@@ -188,6 +207,8 @@ extension ViewController:CBPeripheralDelegate, CBCentralManagerDelegate{
                 }
                 
                 print(availableInputs as Any);
+                
+                // MARK: -GetBluetoothDevices
                 let aryUUID = ["180A","1800","1811","1815","180F","183B","1810","181B","181E","181F","1805","1818","1816","180A","183C","181A","1826","1801",
                                "1808","1809","180D","1823","1812","1802","1821","183A","1820","1803","1819","1827","1828","1807","1825","180E","1822","1829","1806",
                                "1814","1813","1824","1804","181C","181D", "2A00", "2A29", "2A23"]

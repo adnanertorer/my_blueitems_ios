@@ -17,6 +17,7 @@ class AudioProtectionStartViewController: UIViewController {
     @IBAction func startProtection(_ sender: Any) {
         deviceArray.append(mySelectedCustomPeripheral);
         audioProtected = true;
+        
         let alert = UIAlertController(title: "Buzzy", message: "Device added to protected device list. ", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
             alert.dismiss(animated: true, completion: nil);

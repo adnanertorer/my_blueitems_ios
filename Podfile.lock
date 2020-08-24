@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.2.2)
+  - CocoaAsyncSocket (7.6.4)
   - Firebase/Analytics (6.29.0):
     - Firebase/Core
   - Firebase/Core (6.29.0):
@@ -82,6 +83,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.1):
     - GoogleUtilities/Logger
+  - JKVValue (1.3.3)
   - MBProgressHUD (1.2.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
@@ -90,6 +92,9 @@ PODS:
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.9)
   - Protobuf (3.12.0)
+  - RMQClient (0.11.0):
+    - CocoaAsyncSocket (~> 7.6)
+    - JKVValue (~> 1.3)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -98,11 +103,13 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Messaging
   - MBProgressHUD (~> 1.2.0)
+  - RMQClient (~> 0.11.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CocoaAsyncSocket
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -114,14 +121,17 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - JKVValue
     - MBProgressHUD
     - nanopb
     - PromisesObjC
     - Protobuf
+    - RMQClient
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   Firebase: 57957c8d6eb3d8b80a560b1dc58be24724b89ff2
   FirebaseAnalytics: aa522dce9fd93002ba1554467d23ce7092323000
   FirebaseCore: 7930a1946517d94256d857f97371ed993b55f7bd
@@ -133,12 +143,14 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 345d365fd105e6682bf5084783a5352a3db26820
   GoogleDataTransport: af0c79193dc59acd37630b4833d0dc6912ae6bd5
   GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
+  JKVValue: d7941071b1cf9ba35c194fd40bcf4c4d9b5462e9
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  RMQClient: c77b0e715dbfcdfe81b304aa4f4e82b3d7ef6ff5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 3c47a9c6fc2aa75c028b2ae0ba97666093844030
+PODFILE CHECKSUM: 80008c7448f888feff1e4a42fd30446604d2dbe3
 
 COCOAPODS: 1.9.3

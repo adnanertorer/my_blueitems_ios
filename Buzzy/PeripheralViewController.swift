@@ -141,26 +141,6 @@ CBCentralManagerDelegate, UITabBarDelegate {
         }
     }
     
-    /*func sendNotification(){
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            guard settings.authorizationStatus == .authorized else { return }
-            let content = UNMutableNotificationContent()
-            content.categoryIdentifier = "protectPhoneCategory"
-            content.title = "Device!"
-            content.subtitle = "Are you forget?"
-            content.body = "Did you take your device with you?"
-            content.sound = UNNotificationSound.default
-            
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-            
-            let uuidString = UUID().uuidString
-            let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-            
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-            
-        }
-    }*/
-    
     func convertToSignalStrength(value: Float) -> Int{
         
         if value < -100 {
@@ -193,6 +173,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         // central.stopScan()
+        // MARK: -ConnectToPeripheral
         isConnect = true
         if !protected{
             peripheral.delegate = self
@@ -209,6 +190,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
+        // MARK: -ReadRSSI
         self.rssiStr = RSSI.stringValue
         let bazzyTool = BazzyTools();
         print(self.rssiStr)
@@ -216,6 +198,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
         signalBarView.signal = SignalBarView.SignalStrength(rawValue: convertToSignalStrength(value: Float(RSSI.intValue)))!
         self.lblSignal.text = self.rssiStr;
         if(RSSI.intValue < -85){
+            // MARK: -DeviceAway
             counter = counter+1;
             print(counter);
             if(counter <= bazzyTool.TotalLimit()){
@@ -229,6 +212,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
                 print("-----ortalama-----");
                 print(valueProximitly);
                 sumRssi = 0;
+                // MARK: -SendNotification
                 //self.SendNotifyToServer(signal: RSSI.intValue);
                 self.Notification(signal: valueProximitly){ responseObject, error in
                     // use responseObject and error here
@@ -293,6 +277,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
         switch peripheral.state {
         case .poweredOn:
             if selectedPeripheral != nil{
+                // MARK: -StartTimerForReadRSSI
                 timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(delayedAction), userInfo: nil, repeats: true)
             }
         case .poweredOff, .unknown, .unsupported, .resetting, .unauthorized:
@@ -309,7 +294,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
             }
         }
     }
-    
+    // MARK: -StartProtection
     @IBAction func startPotection(_ sender: Any) {
         if !protected {
             stopProtect = false
