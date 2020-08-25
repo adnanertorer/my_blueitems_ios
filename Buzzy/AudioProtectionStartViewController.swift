@@ -28,6 +28,10 @@ class AudioProtectionStartViewController: UIViewController, AVAudioPlayerDelegat
         let alert = UIAlertController(title: "Bazzy", message: "Device added to protected device list. ", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
             alert.dismiss(animated: true, completion: nil);
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            self.show(vc!, sender: nil)
+            self.dismiss(animated: true, completion: nil)
+           
         }))
         self.present(alert, animated: true, completion: nil);
         
@@ -37,7 +41,11 @@ class AudioProtectionStartViewController: UIViewController, AVAudioPlayerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // MARK: - AudioSessionConfiguration
+        if audioProtected {
+            self.btnStartProtection.isHidden = true
+        }else{
+            self.btnStartProtection.isHidden = false
+        }
        
         
         // Do any additional setup after loading the view.

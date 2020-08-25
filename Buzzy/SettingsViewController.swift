@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class SettingsViewController: UIViewController, UITabBarDelegate {
     
@@ -14,7 +15,7 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
     @IBOutlet weak var sliderScanFrequency: UISlider!
     @IBOutlet weak var tableViewBleDevices: UITableView!
     @IBOutlet weak var tableViewHeadsetsIpods: UITableView!
-    var bleDevices:[String] = []
+    var bleDevices:[CBPeripheral?] = []
     var audioDevices:[String] = []
     
     override func viewDidLoad() {
@@ -27,7 +28,8 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         }
         for item in deviceArray{
             if item.type == "Peripheral"{
-                self.bleDevices.append(item.peripheralName!);
+                self.bleDevices.append(item.peripheral)
+               // self.bleDevices.append(item.peripheralName!);
             }
             if item.type == "Audio"{
                 self.audioDevices.append(item.peripheralName!);
@@ -36,7 +38,40 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         tableViewBleDevices.reloadData();
         tableViewHeadsetsIpods.reloadData();
     }
+    @IBAction func stopBleProtection(_ sender: Any) {
+        stopProtect = true
+        protected = false
+        for item in self.bleDevices{
+            if let array1 = deviceArray.firstIndex(where: { $0.peripheral == item }){
+                deviceArray.remove(at: array1)
+            }
+        }
+        self.bleDevices = []
+        tableViewBleDevices.reloadData();
+        let alert = UIAlertController(title: "Buzzy", message: "Protection of bluetooth devices is stopped", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil);
+        }))
+        self.present(alert, animated: true, completion: nil);
+    }
     
+    @IBAction func stopHIProtection(_ sender: Any) {
+        audioProtected = false
+        let list = deviceArray.filter({$0.type == "Audio"})
+        print(list)
+        for listItem in list{
+            if let deviceIndex = list.firstIndex(where: { $0.peripheralName == listItem.peripheralName}){
+                deviceArray.remove(at: deviceIndex)
+            }
+        }
+        audioDevices = []
+        tableViewHeadsetsIpods.reloadData();
+        let alert = UIAlertController(title: "Buzzy", message: "Protection of audio devices is stopped", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil);
+        }))
+        self.present(alert, animated: true, completion: nil);
+    }
     @IBAction func frequencyChanged(_ sender: Any) {
         print(self.sliderScanFrequency.value)
         let defaults = UserDefaults.standard
@@ -94,8 +129,8 @@ UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == 1{
             let cell:BleTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as! BleTableViewCell;
-            let deviceName = Array(self.bleDevices)[indexPath.row]
-            cell.lblDeviceName.text = deviceName;
+            let peripheral = Array(self.bleDevices)[indexPath.row]
+            cell.lblDeviceName.text = peripheral?.name ?? "unnamed device";
             return cell;
         }else{
             let cell:AudioTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellAudio")! as! AudioTableViewCell;

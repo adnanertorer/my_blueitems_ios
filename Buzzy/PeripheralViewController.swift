@@ -90,19 +90,20 @@ CBCentralManagerDelegate, UITabBarDelegate {
             print("SERVICE \(desc.characteristic.service.uuid.uuidString), DESC: \(desc)")
         }
     }
-    
-    func Notification(signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
-        makeCall("AddNotifyRequest", signal: signal, completionHandler: completionHandler)
+    // MARK: -ServerOperations
+    func Notification(signal:Int, deviceName:String, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
+        makeCall("AddNotifyRequest", signal: signal, deviceName: deviceName, completionHandler: completionHandler)
     }
 
-    func makeCall(_ section: String, signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
+    func makeCall(_ section: String, signal:Int, deviceName:String, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
         let userId = UserDefaults.standard.integer(forKey: "userId");
         let bazzyTool = BazzyTools();
         let apiAddres = bazzyTool.getApiAddress();
         
-        let parameters: [String: Int] = [
+        let parameters: [String: Any] = [
             "userId":userId,
-            "signal":signal
+            "signal":signal,
+            "deviceName": deviceName
         ];
         print(parameters);
         AF.request(apiAddres+section, method: .post, parameters: parameters as Parameters).validate().responseJSON{
@@ -111,29 +112,6 @@ CBCentralManagerDelegate, UITabBarDelegate {
             case .success(let value):
                 print(value)
                 completionHandler(value as? NSDictionary, nil);
-                
-            case .failure(let error):
-                print(error);
-            }
-        }
-    }
-    
-    func SendNotifyToServer(signal: Int){
-        let userId = UserDefaults.standard.integer(forKey: "userId");
-        let bazzyTool = BazzyTools();
-        let apiAddres = bazzyTool.getApiAddress();
-        let parameters: [String: Int] = [
-            "userId":userId,
-            "signal":signal
-        ];
-        print(parameters);
-        AF.request(apiAddres+"AddNotifyRequest", method: .post, parameters: parameters as Parameters, encoding:
-        JSONEncoding.default).validate().responseJSON{
-            response in
-            switch response.result{
-            case .success(let value):
-                let json = JSON(value);
-                print(json);
                 
             case .failure(let error):
                 print(error);
@@ -213,8 +191,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
                 print(valueProximitly);
                 sumRssi = 0;
                 // MARK: -SendNotification
-                //self.SendNotifyToServer(signal: RSSI.intValue);
-                self.Notification(signal: valueProximitly){ responseObject, error in
+                self.Notification(signal: valueProximitly, deviceName: peripheral.name ?? "unnamed device"){ responseObject, error in
                     // use responseObject and error here
 
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")

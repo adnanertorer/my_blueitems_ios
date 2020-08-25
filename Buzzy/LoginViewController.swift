@@ -111,6 +111,7 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
             

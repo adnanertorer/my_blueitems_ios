@@ -64,19 +64,19 @@ class myThread: Thread, CBPeripheralDelegate
                     let valueProximitly = sumRssi / bazzyTool.TotalLimit();
                     sumRssi = 0;
                     print("uzakta")
-                    self.Notification(signal: valueProximitly){ responseObject, error in
+                    self.Notification(signal: valueProximitly, deviceName: peripheral.name ?? "unnamed device"){ responseObject, error in
                         // use responseObject and error here
                         print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                         return
                     };
                 }
-                //SendNotifyToServer(signal: RSSI.intValue);
             }
         }else{
             if(RSSI.intValue < -90){
                 print("uzakta")
-                self.Notification(signal: RSSI.intValue){ responseObject, error in
-                    // use responseObject and error here
+                // MARK: -SendNotification
+                self.Notification(signal: RSSI.intValue, deviceName: peripheral.name ?? "unnamed device"){ responseObject, error in
+                    // use responseObject and error here,
                     
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                     return
@@ -90,34 +90,13 @@ class myThread: Thread, CBPeripheralDelegate
         //self.centralManager.stopScan()
         peripheral.readRSSI()
     }
-    func SendNotifyToServer(signal: Int){
-        let userId = UserDefaults.standard.integer(forKey: "userId");
-        let bazzyTool = BazzyTools();
-        let apiAddres = bazzyTool.getApiAddress();
-        let parameters: [String: Int] = [
-            "userId":userId,
-            "signal":signal
-        ];
-        AF.request(apiAddres+"AddNotifyRequest", method: .post, parameters: parameters, encoding:
-            JSONEncoding.default).validate().responseJSON{
-                response in
-                switch response.result{
-                case .success(let value):
-                    let json = JSON(value);
-                    
-                    print(json);
-                    
-                case .failure(let error):
-                    print(error);
-                }
-        }
+    // MARK: -ServerOperations
+    
+    func Notification(signal:Int, deviceName:String, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
+        makeCall("AddNotifyRequest", deviceName: deviceName, signal: signal, completionHandler: completionHandler)
     }
     
-    func Notification(signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
-        makeCall("AddNotifyRequest", signal: signal, completionHandler: completionHandler)
-    }
-    
-    func makeCall(_ section: String, signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
+    func makeCall(_ section: String, deviceName:String, signal:Int, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
         let userId = UserDefaults.standard.integer(forKey: "userId");
         let bazzyTool = BazzyTools();
         let apiAddres = bazzyTool.getApiAddress();

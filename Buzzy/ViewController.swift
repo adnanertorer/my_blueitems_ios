@@ -126,16 +126,26 @@ UITableViewDelegate{
         // MARK: -BluetoothDeviceCell
            if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
                deviceName = Array(myPeriperals)[indexPath.row].peripheral?.name ?? "unnamed device";
-               let imageBluetooth = UIImage(systemName: "personalhotspot")
-               cell.imgDeviceConnection.image = imageBluetooth;
-               cell.imgDeviceConnection.tintColor = UIColor.green;
+            if #available(iOS 13.0, *) {
+                let imageBluetooth = UIImage(systemName: "personalhotspot")
+                cell.imgDeviceConnection.image = imageBluetooth;
+                cell.imgDeviceConnection.tintColor = UIColor.green;
+            } else {
+                // Fallback on earlier versions
+            }
+               
            }
         // MARK: -AudiDeviceCell
            if Array(myPeriperals)[indexPath.row].type == "Audio"{
                deviceName = Array(myPeriperals)[indexPath.row].peripheralName;
-               let imageAudio = UIImage(systemName: "speaker.3.fill")
-               cell.imgDeviceConnection.image = imageAudio;
-               cell.imgDeviceConnection.tintColor = UIColor.green;
+            if #available(iOS 13.0, *) {
+                let imageAudio = UIImage(systemName: "speaker.3.fill")
+                cell.imgDeviceConnection.image = imageAudio;
+                cell.imgDeviceConnection.tintColor = UIColor.green;
+            } else {
+                // Fallback on earlier versions
+            }
+               
            }
            
            cell.lblDeviceName.text = deviceName;
