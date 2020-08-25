@@ -16,6 +16,7 @@
 		7844B9E224F2B4C0006F4104 /* 15minutesofsilence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B9E124F2B4C0006F4104 /* 15minutesofsilence.mp3 */; };
 		7844B9E424F2B7B0006F4104 /* metallica.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B9E324F2B7B0006F4104 /* metallica.mp3 */; };
 		78ED783A24F3BF72007BF6FF /* myThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ED783924F3BF72007BF6FF /* myThread.swift */; };
+		E41444E324F50E4D00F005CA /* AudioControlThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41444E224F50E4D00F005CA /* AudioControlThread.swift */; };
 		E418D40D24E946AC00C8DE51 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E418D40C24E946AC00C8DE51 /* AVFoundation.framework */; };
 		E419311024B74BCA0062F3D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E419310F24B74BCA0062F3D4 /* AppDelegate.swift */; };
 		E419311224B74BCA0062F3D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E419311124B74BCA0062F3D4 /* SceneDelegate.swift */; };
@@ -52,6 +53,7 @@
 		7844B9E324F2B7B0006F4104 /* metallica.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = metallica.mp3; sourceTree = "<group>"; };
 		78ED783924F3BF72007BF6FF /* myThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myThread.swift; sourceTree = "<group>"; };
 		DDC9DB085A203F0961046BDB /* Pods_Buzzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Buzzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E41444E224F50E4D00F005CA /* AudioControlThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControlThread.swift; sourceTree = "<group>"; };
 		E418D40C24E946AC00C8DE51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E419310C24B74BCA0062F3D4 /* Bazzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bazzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E419310F24B74BCA0062F3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				78350E2724DE02F500779BE5 /* StatusModel.swift */,
 				E4AB69C524DECD6E00D08A88 /* Response.swift */,
 				78ED783924F3BF72007BF6FF /* myThread.swift */,
+				E41444E224F50E4D00F005CA /* AudioControlThread.swift */,
 			);
 			path = tools;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				E4AB69C624DECD6E00D08A88 /* Response.swift in Sources */,
 				E44D835324ED5422004EB3AA /* BleTableViewCell.swift in Sources */,
 				E42BDEA224BDDD8800B80CBC /* ProtectionViewController.swift in Sources */,
+				E41444E324F50E4D00F005CA /* AudioControlThread.swift in Sources */,
 				E419311024B74BCA0062F3D4 /* AppDelegate.swift in Sources */,
 				78ED783A24F3BF72007BF6FF /* myThread.swift in Sources */,
 				E419311224B74BCA0062F3D4 /* SceneDelegate.swift in Sources */,
@@ -460,7 +464,7 @@
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 9268DZ3NFR;
 				INFOPLIST_FILE = Buzzy/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,7 +487,7 @@
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 9268DZ3NFR;
 				INFOPLIST_FILE = Buzzy/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

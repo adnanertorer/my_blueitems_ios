@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import RMQClient
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

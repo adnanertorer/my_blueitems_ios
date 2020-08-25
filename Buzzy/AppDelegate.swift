@@ -18,10 +18,15 @@ import FirebaseCore
 import BackgroundTasks
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     let gcmMessageIDKey = "gcm.message_id"
     var window: UIWindow?
     var audioPlayer:AVAudioPlayer!
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        player.currentTime = 0
+        player.play()
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: - FirebaseConfiguration
@@ -54,22 +59,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch let error as NSError {
             print("Setting category to AVAudioSessionCategoryPlayback failed: \(error)")
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRouteChange), name: AVAudioSession.routeChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAudioInterruption), name: AVAudioSession.interruptionNotification, object: nil)
         
+        return true
+    }
+    func startAuido() {
         do {
             let url = Bundle.main.url(forResource: "metallica", withExtension: "mp3")
             audioPlayer = try AVAudioPlayer(contentsOf: url!)
-            audioPlayer.setVolume(0, fadeDuration: 0)
-            audioPlayer.numberOfLoops = 1000
+            audioPlayer.delegate = self;
             audioPlayer.prepareToPlay()
             audioPlayer.play()
             print("sessiz mp3 basladi")
         } catch let error as NSError {
             print("Failed to init audio player: \(error)")
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRouteChange), name: AVAudioSession.routeChangeNotification, object: nil)
-        
-        return true
+    }
+    // MARK: - HandleAudioInterruption
+    @objc func handleAudioInterruption(notification: Notification) {
+        print("interruption start")
+        guard let userInfo = notification.userInfo,
+            let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+                return
+        }
+
+        // Switch over the interruption type.
+        switch type {
+
+        case .began:
+            // An interruption began. Update the UI as needed.
+            print("began audio")
+            return
+        case .ended:
+           // An interruption ended. Resume playback, if appropriate.
+            print("ended audio")
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+            if options.contains(.shouldResume) {
+                audioPlayer.currentTime = 0
+                audioPlayer.play()
+                print("sessiz mp3 basladi")
+            } else {
+                do {
+                    let url = Bundle.main.url(forResource: "metallica", withExtension: "mp3")
+                    audioPlayer = try AVAudioPlayer(contentsOf: url!)
+                    audioPlayer.delegate = self;
+                    audioPlayer.prepareToPlay()
+                    audioPlayer.play()
+                    print("sessiz mp3 basladi")
+                } catch let error as NSError {
+                    print("Failed to init audio player: \(error)")
+                }
+                // Interruption ended. Playback should not resume.
+            }
+
+        default: ()
+        }
     }
      // MARK: - AudioDeviceConnectDisconnect
     @objc func handleRouteChange(notification: Notification) {
@@ -79,6 +126,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
         }
         switch reason {
+        case .categoryChange:
+            print("categoryChange")
+            break
         case .newDeviceAvailable:
             let session = AVAudioSession.sharedInstance()
             let portList = session.currentRoute.outputs

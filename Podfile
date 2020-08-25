@@ -15,5 +15,4 @@ target 'Buzzy' do
   pod 'Alamofire'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'MBProgressHUD', '~> 1.2.0'
-  pod 'RMQClient', '~> 0.11.0'
 end
