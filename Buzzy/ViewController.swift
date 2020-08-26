@@ -41,8 +41,8 @@ class ViewController: UIViewController{
         
         // MARK: -AudioSessionConfiguration
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth,.allowAirPlay,.allowBluetoothA2DP, .allowAirPlay])
-            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+         //   try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth,.allowAirPlay,.allowBluetoothA2DP, .allowAirPlay])
+            //try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
         } catch {}
         
         
@@ -156,26 +156,99 @@ UITableViewDelegate{
        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            centralManager.stopScan();
         // MARK: -SelectBluetoothDevice
-           if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
-               selectedPeripheral = Array(myPeriperals)[indexPath.row].peripheral;
-               uuid = selectedPeripheral.identifier.uuidString;
-               let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
-               vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
-               self.show(vc!, sender: nil)
-           }else{
+        if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
+            if selectedPeripheral != nil{
+                let alert = UIAlertController(title: "Buzzy", message: "Device already selected. Redirecting to device screen.", preferredStyle: .alert);
+                alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
+                    alert.dismiss(animated: true, completion: nil);
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                    self.show(vc!, sender: nil)
+                }))
+                self.present(alert, animated: true, completion: nil);
+                
+            }else{
+                selectedPeripheral = Array(myPeriperals)[indexPath.row].peripheral;
+                uuid = selectedPeripheral.identifier.uuidString;
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
+                vc?.modalPresentationStyle = .fullScreen;
+                self.show(vc!, sender: nil)
+            }
+        }else{
             // MARK: -SelectAudioDevice
-               let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
-               vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
-               self.show(vc!, sender: nil)
-           }
-       }
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
+            vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
+            vc?.modalPresentationStyle = .fullScreen;
+            self.show(vc!, sender: nil)
+        }
+    }
 }
 
 extension ViewController:CBPeripheralDelegate, CBCentralManagerDelegate{
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state != .poweredOn {
         } else {
-            if selectedPeripheral != nil{
+            let availableInputs = AVAudioSession.sharedInstance().availableInputs
+            for input in availableInputs!{
+                if input.portType.rawValue.starts(with: "Bluetooth"){
+                    let perAudioClass = MyPeripheral(name: input.portName, perp: nil, uuid: input.uid, type: "Audio");
+                    if myPeriperals.count == 0 {
+                        myPeriperals.append(perAudioClass);
+                    }else{
+                        var status = false;
+                        for per in myPeriperals{
+                            if per.uuid == perAudioClass.uuid{
+                                status = true;
+                            }
+                        }
+                        if !status{
+                            myPeriperals.append(perAudioClass);
+                        }
+                    }
+                    print(input.channels as Any)
+                    print(input.portName)
+                    print(input.portType)
+                    print(input.uid)
+                    print(input.dataSources ?? "");
+                }
+                
+                
+            }
+            
+            print(availableInputs as Any);
+            
+            // MARK: -GetBluetoothDevices
+            let aryUUID = ["180A","1800","1811","1815","180F","183B","1810","181B","181E","181F","1805","1818","1816","180A","183C","181A","1826","1801",
+                           "1808","1809","180D","1823","1812","1802","1821","183A","1820","1803","1819","1827","1828","1807","1825","180E","1822","1829","1806",
+                           "1814","1813","1824","1804","181C","181D", "2A00", "2A29", "2A23"]
+            var aryCBUUIDS = [CBUUID]()
+            
+            for uuid in aryUUID{
+                let uuids = CBUUID(string: uuid)
+                aryCBUUIDS.append(uuids)
+            }
+            let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: aryCBUUIDS)
+            for device in connectedDevices {
+                let perpClass = MyPeripheral(name:device.name ?? "unnamed decive", perp: device, uuid: device.identifier.uuidString,
+                                             type: "Peripheral");
+                if myPeriperals.count == 0 {
+                    myPeriperals.append(perpClass);
+                }else{
+                    var status = false;
+                    for per in myPeriperals{
+                        if per.uuid == perpClass.uuid{
+                            status = true;
+                        }
+                    }
+                    if !status{
+                        myPeriperals.append(perpClass);
+                    }
+                }
+            }
+            self.refreshControl.endRefreshing();
+            tableView.reloadData();
+           /* if selectedPeripheral != nil{
                 central.retrievePeripherals(withIdentifiers: [selectedPeripheral.identifier])
                 let alert = UIAlertController(title: "Buzzy", message: "Device already selected. Redirecting to device screen.", preferredStyle: .alert);
                 alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
@@ -189,66 +262,8 @@ extension ViewController:CBPeripheralDelegate, CBCentralManagerDelegate{
                 
             }else{
                // MARK: -GetAudioDevices
-                let availableInputs = AVAudioSession.sharedInstance().availableInputs
-                for input in availableInputs!{
-                    if input.portType.rawValue.starts(with: "Bluetooth"){
-                        let perAudioClass = MyPeripheral(name: input.portName, perp: nil, uuid: input.uid, type: "Audio");
-                        if myPeriperals.count == 0 {
-                            myPeriperals.append(perAudioClass);
-                        }else{
-                            var status = false;
-                            for per in myPeriperals{
-                                if per.uuid == perAudioClass.uuid{
-                                    status = true;
-                                }
-                            }
-                            if !status{
-                                myPeriperals.append(perAudioClass);
-                            }
-                        }
-                        print(input.channels as Any)
-                        print(input.portName)
-                        print(input.portType)
-                        print(input.uid)
-                        print(input.dataSources ?? "");
-                    }
-                    
-                    
-                }
                 
-                print(availableInputs as Any);
-                
-                // MARK: -GetBluetoothDevices
-                let aryUUID = ["180A","1800","1811","1815","180F","183B","1810","181B","181E","181F","1805","1818","1816","180A","183C","181A","1826","1801",
-                               "1808","1809","180D","1823","1812","1802","1821","183A","1820","1803","1819","1827","1828","1807","1825","180E","1822","1829","1806",
-                               "1814","1813","1824","1804","181C","181D", "2A00", "2A29", "2A23"]
-                var aryCBUUIDS = [CBUUID]()
-                
-                for uuid in aryUUID{
-                    let uuids = CBUUID(string: uuid)
-                    aryCBUUIDS.append(uuids)
-                }
-                let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: aryCBUUIDS)
-                for device in connectedDevices {
-                    let perpClass = MyPeripheral(name:device.name ?? "unnamed decive", perp: device, uuid: device.identifier.uuidString,
-                                                 type: "Peripheral");
-                    if myPeriperals.count == 0 {
-                        myPeriperals.append(perpClass);
-                    }else{
-                        var status = false;
-                        for per in myPeriperals{
-                            if per.uuid == perpClass.uuid{
-                                status = true;
-                            }
-                        }
-                        if !status{
-                            myPeriperals.append(perpClass);
-                        }
-                    }
-                }
-                self.refreshControl.endRefreshing();
-                tableView.reloadData();
-            }
+            }*/
         }
     }
     
@@ -287,9 +302,11 @@ extension ViewController:UITabBarDelegate{
             if selectedPeripheral != nil {
                 if protected {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
+                    vc!.modalPresentationStyle = .fullScreen;
                     self.show(vc!, sender: nil)
                 }else{
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                    vc!.modalPresentationStyle = .fullScreen;
                     self.show(vc!, sender: nil)
                 }
             }else{
@@ -303,10 +320,12 @@ extension ViewController:UITabBarDelegate{
         }
         if item.tag == 2{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
         if item.tag == 3{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
     }

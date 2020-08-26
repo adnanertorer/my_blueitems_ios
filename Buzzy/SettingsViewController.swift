@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         for item in deviceArray{
             if item.type == "Peripheral"{
                 self.bleDevices.append(item.peripheral)
-               // self.bleDevices.append(item.peripheralName!);
+                // self.bleDevices.append(item.peripheralName!);
             }
             if item.type == "Audio"{
                 self.audioDevices.append(item.peripheralName!);
@@ -90,16 +90,19 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         
         if item.tag == 0 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "deviceTableView") as? ViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
         if item.tag == 1 {
             if selectedPeripheral != nil {
                 if protected {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
-                               self.show(vc!, sender: nil)
+                    vc!.modalPresentationStyle = .fullScreen;
+                    self.show(vc!, sender: nil)
                 }else{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
-                self.show(vc!, sender: nil)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                    vc!.modalPresentationStyle = .fullScreen;
+                    self.show(vc!, sender: nil)
                 }
             }else{
                 let alert = UIAlertController(title: "Buzzy", message: "Please select a device firts", preferredStyle: .alert);
@@ -111,6 +114,7 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
         }
         if item.tag == 3 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
     }

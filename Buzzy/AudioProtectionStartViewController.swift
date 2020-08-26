@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class AudioProtectionStartViewController: UIViewController, AVAudioPlayerDelegate {
-
+    
     
     var mySelectedCustomPeripheral: MyPeripheral!
     @IBOutlet weak var btnStartProtection: UIButton!
@@ -19,9 +19,9 @@ class AudioProtectionStartViewController: UIViewController, AVAudioPlayerDelegat
     @IBAction func startProtection(_ sender: Any) {
         deviceArray.append(mySelectedCustomPeripheral);
         audioProtected = true;
-       // get a reference to the app delegate
+        // get a reference to the app delegate
         let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
-
+        
         // call didFinishLaunchWithOptions ... why?
         appDelegate?.startAuido()
         
@@ -29,9 +29,9 @@ class AudioProtectionStartViewController: UIViewController, AVAudioPlayerDelegat
         alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
             alert.dismiss(animated: true, completion: nil);
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            vc?.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
-            self.dismiss(animated: true, completion: nil)
-           
+            
         }))
         self.present(alert, animated: true, completion: nil);
         
@@ -40,28 +40,28 @@ class AudioProtectionStartViewController: UIViewController, AVAudioPlayerDelegat
     @IBOutlet weak var txtDescription: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if audioProtected {
             self.btnStartProtection.isHidden = true
         }else{
             self.btnStartProtection.isHidden = false
         }
-       
+        
         
         // Do any additional setup after loading the view.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension AudioProtectionStartViewController: UITabBarDelegate{
@@ -71,9 +71,11 @@ extension AudioProtectionStartViewController: UITabBarDelegate{
             if selectedPeripheral != nil {
                 if protected {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
+                    vc!.modalPresentationStyle = .fullScreen;
                     self.show(vc!, sender: nil)
                 }else{
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                    vc!.modalPresentationStyle = .fullScreen;
                     self.show(vc!, sender: nil)
                 }
             }else{
@@ -87,10 +89,12 @@ extension AudioProtectionStartViewController: UITabBarDelegate{
         }
         if item.tag == 2{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
         if item.tag == 3{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
     }

@@ -19,15 +19,19 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         setUpSignInAppleButton();
-        
-        let isLogin = UserDefaults.standard.object(forKey: "loginStatus");
-        
-        if let login = isLogin as? Bool{
-            if(login){
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "deviceTableView")
-                self.show(vc!, sender: nil)
-            }
+        IAppService.shared.getProducts();
+        let loginStatus = UserDefaults.standard.bool(forKey: "loginStatus")
+        if loginStatus {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "deviceTableView") as! ViewController
+            // Alternative way to present the new view controller
+            //self.navigationController?.show(vc, sender: nil)
+            
+            //let vc = self.storyboard?.instantiateViewController(withIdentifier: "deviceTableView");
+            vc.modalPresentationStyle = .fullScreen;
+            self.show(vc, sender: nil);
         }
+        
 
         // Do any additional setup after loading the view.
     }
@@ -43,7 +47,9 @@ class LoginViewController: UIViewController {
             appleButton.trailingAnchor.constraint(equalTo: self.btnAppleSign.trailingAnchor, constant: 0.0),
             appleButton.bottomAnchor.constraint(equalTo: self.btnAppleSign.bottomAnchor, constant: 0.0),
         ])
+        
     }
+    
     @objc func handleAppleIdRequest() {
        let appleIDProvider = ASAuthorizationAppleIDProvider()
        let request = appleIDProvider.createRequest()

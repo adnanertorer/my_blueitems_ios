@@ -34,6 +34,8 @@
 		E42BDEA224BDDD8800B80CBC /* ProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */; };
 		E44D835324ED5422004EB3AA /* BleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D835224ED5422004EB3AA /* BleTableViewCell.swift */; };
 		E44D835524ED544D004EB3AA /* AudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D835424ED544D004EB3AA /* AudioTableViewCell.swift */; };
+		E46F6F5F24F683C400F42E83 /* IAppProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46F6F5E24F683C400F42E83 /* IAppProduct.swift */; };
+		E46F6F6124F685B600F42E83 /* IAppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46F6F6024F685B600F42E83 /* IAppService.swift */; };
 		E4AB69C624DECD6E00D08A88 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB69C524DECD6E00D08A88 /* Response.swift */; };
 		E4AB69C824DFEA4300D08A88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */; };
 		E4E4B2B724EB1732001CD868 /* AudioProtectionStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */; };
@@ -74,6 +76,8 @@
 		E42BDEA124BDDD8800B80CBC /* ProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectionViewController.swift; sourceTree = "<group>"; };
 		E44D835224ED5422004EB3AA /* BleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleTableViewCell.swift; sourceTree = "<group>"; };
 		E44D835424ED544D004EB3AA /* AudioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTableViewCell.swift; sourceTree = "<group>"; };
+		E46F6F5E24F683C400F42E83 /* IAppProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAppProduct.swift; sourceTree = "<group>"; };
+		E46F6F6024F685B600F42E83 /* IAppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAppService.swift; sourceTree = "<group>"; };
 		E4AB69C524DECD6E00D08A88 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4E4B2B624EB1732001CD868 /* AudioProtectionStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProtectionStartViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 				E4AB69C524DECD6E00D08A88 /* Response.swift */,
 				78ED783924F3BF72007BF6FF /* myThread.swift */,
 				E41444E224F50E4D00F005CA /* AudioControlThread.swift */,
+				E46F6F5E24F683C400F42E83 /* IAppProduct.swift */,
+				E46F6F6024F685B600F42E83 /* IAppService.swift */,
 			);
 			path = tools;
 			sourceTree = "<group>";
@@ -298,6 +304,7 @@
 			files = (
 				E419312424B74F8F0062F3D4 /* PeripheralViewController.swift in Sources */,
 				78350E2824DE02F500779BE5 /* StatusModel.swift in Sources */,
+				E46F6F6124F685B600F42E83 /* IAppService.swift in Sources */,
 				E419311424B74BCA0062F3D4 /* ViewController.swift in Sources */,
 				E419312624B750AE0062F3D4 /* SignalBarView.swift in Sources */,
 				E41FF0F524B7B55A0072C895 /* GlobalVariables.swift in Sources */,
@@ -307,6 +314,7 @@
 				E42BDEA224BDDD8800B80CBC /* ProtectionViewController.swift in Sources */,
 				E41444E324F50E4D00F005CA /* AudioControlThread.swift in Sources */,
 				E419311024B74BCA0062F3D4 /* AppDelegate.swift in Sources */,
+				E46F6F5F24F683C400F42E83 /* IAppProduct.swift in Sources */,
 				78ED783A24F3BF72007BF6FF /* myThread.swift in Sources */,
 				E419311224B74BCA0062F3D4 /* SceneDelegate.swift in Sources */,
 				78350E2624DE02BF00779BE5 /* BazzyTools.swift in Sources */,

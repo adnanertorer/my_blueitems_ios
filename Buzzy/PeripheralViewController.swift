@@ -94,7 +94,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
     func Notification(signal:Int, deviceName:String, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
         makeCall("AddNotifyRequest", signal: signal, deviceName: deviceName, completionHandler: completionHandler)
     }
-
+    
     func makeCall(_ section: String, signal:Int, deviceName:String, completionHandler: @escaping (NSDictionary?, Error?) -> ()) {
         let userId = UserDefaults.standard.integer(forKey: "userId");
         let bazzyTool = BazzyTools();
@@ -184,7 +184,7 @@ CBCentralManagerDelegate, UITabBarDelegate {
                 print("-----toplam-----");
                 print(sumRssi);
             }else{
-               
+                
                 counter = 0;
                 let valueProximitly = sumRssi / bazzyTool.TotalLimit();
                 print("-----ortalama-----");
@@ -193,13 +193,13 @@ CBCentralManagerDelegate, UITabBarDelegate {
                 // MARK: -SendNotification
                 self.Notification(signal: valueProximitly, deviceName: peripheral.name ?? "unnamed device"){ responseObject, error in
                     // use responseObject and error here
-
+                    
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                     return
                 };
             }
             
-
+            
         }
         self.advertise(message: self.rssiStr)
         // centralManager.stopScan()
@@ -284,10 +284,17 @@ CBCentralManagerDelegate, UITabBarDelegate {
             lblDescription.text = "Your device is protected. You can throw the app into the background. But do not close the application.";
             self.btnProtected.isHidden = true
             deviceArray.append(mySelectedCustomPeripheral);
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
-            self.show(vc!, sender: nil)
+            let alert = UIAlertController(title: "Bazzy", message: "Device added to protected device list. ", preferredStyle: .alert);
+            alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+                vc!.modalPresentationStyle = .fullScreen;
+                self.show(vc!, sender: nil)
+            }))
+            self.present(alert, animated: true, completion: nil);
+            
         }else{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
     }
@@ -296,14 +303,17 @@ CBCentralManagerDelegate, UITabBarDelegate {
         
         if item.tag == 0 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "deviceTableView") as? ViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
         if item.tag == 2 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
         if item.tag == 3 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
     }

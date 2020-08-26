@@ -57,16 +57,19 @@ class SendMailViewController: UIViewController, UITabBarDelegate, UITextFieldDel
         
         if item.tag == 0 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "deviceTableView") as? ViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
         if item.tag == 1 {
             if selectedPeripheral != nil {
                 if protected {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
-                               self.show(vc!, sender: nil)
+                    vc!.modalPresentationStyle = .fullScreen;
+                    self.show(vc!, sender: nil)
                 }else{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
-                self.show(vc!, sender: nil)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                    vc!.modalPresentationStyle = .fullScreen;
+                    self.show(vc!, sender: nil)
                 }
             }else{
                 let alert = UIAlertController(title: "Buzzy", message: "Please select a device firts", preferredStyle: .alert);
@@ -78,6 +81,7 @@ class SendMailViewController: UIViewController, UITabBarDelegate, UITextFieldDel
         }
         if item.tag == 2 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+            vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
     }
