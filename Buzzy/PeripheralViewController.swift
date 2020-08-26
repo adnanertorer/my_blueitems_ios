@@ -306,12 +306,12 @@ CBCentralManagerDelegate, UITabBarDelegate {
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
-        if item.tag == 2 {
+        if item.tag == 1 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
-        if item.tag == 3 {
+        if item.tag == 2 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)

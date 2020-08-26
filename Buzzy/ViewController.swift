@@ -158,11 +158,12 @@ UITableViewDelegate{
         // MARK: -SelectBluetoothDevice
         if Array(myPeriperals)[indexPath.row].type == "Peripheral"{
             if selectedPeripheral != nil{
-                let alert = UIAlertController(title: "Buzzy", message: "Device already selected. Redirecting to device screen.", preferredStyle: .alert);
+                let alert = UIAlertController(title: "Buzzy", message: "Device already selected. Redirecting to settings screen.", preferredStyle: .alert);
                 alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
                     alert.dismiss(animated: true, completion: nil);
                     
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+                    vc?.modalPresentationStyle = .fullScreen;
                     self.show(vc!, sender: nil)
                 }))
                 self.present(alert, animated: true, completion: nil);
@@ -177,10 +178,23 @@ UITableViewDelegate{
             }
         }else{
             // MARK: -SelectAudioDevice
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
-            vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
-            vc?.modalPresentationStyle = .fullScreen;
-            self.show(vc!, sender: nil)
+            if audioProtected {
+                let alert = UIAlertController(title: "Buzzy", message: "Device already protected. Redirecting to settings screen.", preferredStyle: .alert);
+                alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
+                    alert.dismiss(animated: true, completion: nil);
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
+                    vc?.modalPresentationStyle = .fullScreen;
+                    self.show(vc!, sender: nil)
+                }))
+                self.present(alert, animated: true, completion: nil);
+                
+            }else{
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "audioProtectionView") as? AudioProtectionStartViewController
+                vc?.mySelectedCustomPeripheral = Array(myPeriperals)[indexPath.row];
+                vc?.modalPresentationStyle = .fullScreen;
+                self.show(vc!, sender: nil)
+            }
         }
     }
 }
@@ -299,31 +313,11 @@ extension ViewController:UITabBarDelegate{
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         if item.tag == 1{
-            if selectedPeripheral != nil {
-                if protected {
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
-                    vc!.modalPresentationStyle = .fullScreen;
-                    self.show(vc!, sender: nil)
-                }else{
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
-                    vc!.modalPresentationStyle = .fullScreen;
-                    self.show(vc!, sender: nil)
-                }
-            }else{
-                let alert = UIAlertController(title: "Buzzy", message: "Please select a device firts", preferredStyle: .alert);
-                alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
-                    alert.dismiss(animated: true, completion: nil);
-                }))
-                self.present(alert, animated: true, completion: nil);
-            }
-            
-        }
-        if item.tag == 2{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "settingsView") as? SettingsViewController
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
-        if item.tag == 3{
+        if item.tag == 2{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)

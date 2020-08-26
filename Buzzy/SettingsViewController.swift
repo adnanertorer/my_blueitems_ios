@@ -93,26 +93,7 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)
         }
-        if item.tag == 1 {
-            if selectedPeripheral != nil {
-                if protected {
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "protectionView") as? ProtectionViewController
-                    vc!.modalPresentationStyle = .fullScreen;
-                    self.show(vc!, sender: nil)
-                }else{
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController
-                    vc!.modalPresentationStyle = .fullScreen;
-                    self.show(vc!, sender: nil)
-                }
-            }else{
-                let alert = UIAlertController(title: "Buzzy", message: "Please select a device firts", preferredStyle: .alert);
-                alert.addAction(UIAlertAction(title: "Okey", style: .default, handler: { (UIAlertAction) in
-                    alert.dismiss(animated: true, completion: nil);
-                }))
-                self.present(alert, animated: true, completion: nil);
-            }
-        }
-        if item.tag == 3 {
+        if item.tag == 2 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "sendMailView") as? SendMailViewController
             vc!.modalPresentationStyle = .fullScreen;
             self.show(vc!, sender: nil)

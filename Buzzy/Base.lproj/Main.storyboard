@@ -68,9 +68,8 @@
                                 </constraints>
                                 <items>
                                     <tabBarItem title="Device List" image="personalhotspot" catalog="system" id="f7e-DC-IMT"/>
-                                    <tabBarItem tag="1" title="Selected Device" image="eye" catalog="system" id="4tC-L0-Pyx"/>
-                                    <tabBarItem tag="2" title="Settings" image="ellipsis.circle" catalog="system" id="Pxk-NO-Vqn"/>
-                                    <tabBarItem tag="3" title="Contact" image="message" catalog="system" id="G9b-Iu-yN1"/>
+                                    <tabBarItem tag="1" title="Settings" image="ellipsis.circle" catalog="system" id="Pxk-NO-Vqn"/>
+                                    <tabBarItem tag="2" title="Contact" image="message" catalog="system" id="G9b-Iu-yN1"/>
                                 </items>
                                 <color key="selectedImageTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -194,9 +193,8 @@
                                 </constraints>
                                 <items>
                                     <tabBarItem title="Device List" image="personalhotspot" catalog="system" id="0IF-iI-laR"/>
-                                    <tabBarItem tag="1" title="Selected Device" image="eye" catalog="system" id="9ro-gG-fnr"/>
-                                    <tabBarItem tag="2" title="Settings" image="ellipsis.circle" catalog="system" id="xkB-dL-34W"/>
-                                    <tabBarItem tag="3" title="Contact" image="message" catalog="system" id="5ba-zq-AEa"/>
+                                    <tabBarItem tag="1" title="Settings" image="ellipsis.circle" catalog="system" id="xkB-dL-34W"/>
+                                    <tabBarItem tag="2" title="Contact" image="message" catalog="system" id="5ba-zq-AEa"/>
                                 </items>
                                 <color key="selectedImageTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -374,9 +372,8 @@
                                 </constraints>
                                 <items>
                                     <tabBarItem title="Device List" image="personalhotspot" catalog="system" id="DZ4-wZ-zss"/>
-                                    <tabBarItem tag="1" title="Selected Device" image="eye" catalog="system" id="nQf-Jq-CFA"/>
-                                    <tabBarItem tag="2" title="Settings" image="ellipsis.circle" catalog="system" id="ckg-tc-Uwh"/>
-                                    <tabBarItem tag="3" title="Contact" image="message" catalog="system" id="xRA-Xk-lVe"/>
+                                    <tabBarItem tag="1" title="Settings" image="ellipsis.circle" catalog="system" id="ckg-tc-Uwh"/>
+                                    <tabBarItem tag="2" title="Contact" image="message" catalog="system" id="xRA-Xk-lVe"/>
                                 </items>
                                 <color key="selectedImageTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -473,9 +470,8 @@
                                 </constraints>
                                 <items>
                                     <tabBarItem title="Device List" image="personalhotspot" catalog="system" id="2bn-N0-m8x"/>
-                                    <tabBarItem tag="1" title="Selected Device" image="eye" catalog="system" id="262-3m-if2"/>
-                                    <tabBarItem tag="2" title="Settings" image="ellipsis.circle" catalog="system" id="9Nv-2O-d2W"/>
-                                    <tabBarItem tag="3" title="Contact" image="message" catalog="system" id="7U0-fd-n7K"/>
+                                    <tabBarItem tag="1" title="Settings" image="ellipsis.circle" catalog="system" id="9Nv-2O-d2W"/>
+                                    <tabBarItem tag="2" title="Contact" image="message" catalog="system" id="7U0-fd-n7K"/>
                                 </items>
                                 <color key="selectedImageTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -507,7 +503,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRR-OC-L5w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2519" y="819"/>
+            <point key="canvasLocation" x="2409" y="819"/>
         </scene>
         <!--Peripheral View Controller-->
         <scene sceneID="6Es-Ac-hWe">
@@ -561,9 +557,8 @@
                                 </constraints>
                                 <items>
                                     <tabBarItem title="Device List" image="personalhotspot" catalog="system" id="kCR-Sm-h8D"/>
-                                    <tabBarItem tag="1" title="Selected Device" image="eye" catalog="system" id="2Jd-3b-kvr"/>
-                                    <tabBarItem tag="2" title="Settings" image="ellipsis.circle" catalog="system" id="3Wt-5N-MLJ"/>
-                                    <tabBarItem tag="3" title="Contact" image="message" catalog="system" id="Uwq-b5-MEG"/>
+                                    <tabBarItem tag="1" title="Settings" image="ellipsis.circle" catalog="system" id="3Wt-5N-MLJ"/>
+                                    <tabBarItem tag="2" title="Contact" image="message" catalog="system" id="Uwq-b5-MEG"/>
                                 </items>
                                 <color key="selectedImageTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
