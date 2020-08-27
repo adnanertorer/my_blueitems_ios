@@ -61,12 +61,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         
         application.registerForRemoteNotifications();
         
-         // MARK: - AudioSessionConfiguration
+        // MARK: - AudioSessionConfiguration
         
         audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.playAndRecord, options: [.allowBluetooth,.allowAirPlay,.allowBluetoothA2DP])
-            //try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
             setInputGain(gain: 0, audioSession: audioSession)
         } catch let error as NSError {
             print("Setting category to AVAudioSessionCategoryPlayback failed: \(error)")
@@ -80,13 +80,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     }
     
     func setInputGain(gain: Float, audioSession:AVAudioSession) {
-      if audioSession.isInputGainSettable {
-        do {
-            try audioSession.setInputGain(gain)
-        }catch let error as NSError{
-            print("Input gain error: \(error)")
+        if audioSession.isInputGainSettable {
+            do {
+                try audioSession.setInputGain(gain)
+            }catch let error as NSError{
+                print("Input gain error: \(error)")
+            }
         }
-      }
     }
     
     func startAuido() {
@@ -110,22 +110,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
                 return
         }
-
+        
         // Switch over the interruption type.
         switch type {
-
+            
         case .began:
             // An interruption began. Update the UI as needed.
             print("began audio")
             return
         case .ended:
-           // An interruption ended. Resume playback, if appropriate.
+            // An interruption ended. Resume playback, if appropriate.
             print("ended audio")
             guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
             if options.contains(.shouldResume) {
-                audioPlayer.currentTime = 0
-                audioPlayer.play()
+                if audioPlayer != nil{
+                    audioPlayer.currentTime = 0
+                    audioPlayer.play()
+                }
                 print("sessiz mp3 basladi")
             } else {
                 do {
@@ -140,26 +142,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
                 }
                 // Interruption ended. Playback should not resume.
             }
-
+            
         default: ()
         }
     }
-     // MARK: - AudioDeviceConnectDisconnect
+    // MARK: - AudioDeviceConnectDisconnect
     @objc func handleRouteChange(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
             let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {
                 return
         }
-        print("------------------")
-        
-         print("------------------")
         switch reason {
         case .noSuitableRouteForCategory:
             print("------------------")
             print("noSuitableRouteForCategory")
             print("ses aygıtı ile bağlantı koptu")
             if audioProtected {
+                if audioPlayer != nil{
+                    audioPlayer.currentTime = 0
+                    audioPlayer.play()
+                    print("player restart")
+                }
                 self.Notification(signal: 0, deviceName: "Audio Device"){ responseObject, error in
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                     return
@@ -172,6 +176,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             print("override")
             print("ses aygıtı ile bağlantı koptu")
             if audioProtected {
+                if audioPlayer != nil{
+                    audioPlayer.currentTime = 0
+                    audioPlayer.play()
+                    print("player restart")
+                }
+                
                 self.Notification(signal: 0, deviceName: "Audio Device"){ responseObject, error in
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                     return
@@ -184,6 +194,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             print("outeConfigurationChange:")
             print("ses aygıtı ile bağlantı koptu")
             if audioProtected {
+                if audioPlayer != nil{
+                    audioPlayer.currentTime = 0
+                    audioPlayer.play()
+                    print("player restart")
+                }
+                
                 self.Notification(signal: 0, deviceName: "Audio Device"){ responseObject, error in
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                     return
@@ -205,13 +221,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             print("------------------")
             print("categoryChange")
             print("ses aygıtı ile bağlantı koptu")
-                       if audioProtected {
-                           self.Notification(signal: 0, deviceName: "Audio Device - Please reconnect the bluetooth device"){ responseObject, error in
-                               print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
-                               return
-                           };
-                       }
-                       print("------------------")
+            if audioProtected {
+                if audioPlayer != nil{
+                    audioPlayer.currentTime = 0
+                    audioPlayer.play()
+                    print("player restart")
+                }
+                
+                self.Notification(signal: 0, deviceName: "Audio Device - Please reconnect the bluetooth device"){ responseObject, error in
+                    print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
+                    return
+                };
+            }
+            print("------------------")
             print("------------------")
             break
         case .newDeviceAvailable:
@@ -219,30 +241,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             for port in portList{
                 if port.portType == AVAudioSession.Port.bluetoothA2DP || port.portType == AVAudioSession.Port.airPlay || port.portType == AVAudioSession.Port.bluetoothHFP || port.portType == AVAudioSession.Port.bluetoothLE ||  port.portType == AVAudioSession.Port.headphones ||  port.portType == AVAudioSession.Port.headsetMic {
                     print("ses aygıtı bağlandı")
+                    if audioPlayer != nil{
+                        if !audioPlayer.isPlaying{
+                            audioPlayer.currentTime = 0
+                            audioPlayer.play()
+                            print("sessiz mp3 basladi")
+                        }
+                    }
                     break
                 }
             }
         case .oldDeviceUnavailable:
             /*if let previousRoute =
-                userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
-                print(previousRoute.outputs)
-                let portList = previousRoute.outputs
-                for port in portList{
-                    if port.portType == AVAudioSession.Port.bluetoothA2DP || port.portType == AVAudioSession.Port.airPlay || port.portType == AVAudioSession.Port.bluetoothHFP || port.portType == AVAudioSession.Port.bluetoothLE ||  port.portType == AVAudioSession.Port.headphones ||  port.portType == AVAudioSession.Port.headsetMic {
-                        // MARK: -SendNotification
-                        print("ses aygıtı ile bağlantı koptu")
-                        if audioProtected {
-                            self.Notification(signal: 0, deviceName: port.portName){ responseObject, error in
-                                print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
-                                return
-                            };
-                        }
-                        break
-                    }
-                }
-            }*/
+             userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
+             print(previousRoute.outputs)
+             let portList = previousRoute.outputs
+             for port in portList{
+             if port.portType == AVAudioSession.Port.bluetoothA2DP || port.portType == AVAudioSession.Port.airPlay || port.portType == AVAudioSession.Port.bluetoothHFP || port.portType == AVAudioSession.Port.bluetoothLE ||  port.portType == AVAudioSession.Port.headphones ||  port.portType == AVAudioSession.Port.headsetMic {
+             // MARK: -SendNotification
+             print("ses aygıtı ile bağlantı koptu")
+             if audioProtected {
+             self.Notification(signal: 0, deviceName: port.portName){ responseObject, error in
+             print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
+             return
+             };
+             }
+             break
+             }
+             }
+             }*/
             print("ses aygıtı ile bağlantı koptu")
             if audioProtected {
+                if audioPlayer != nil{
+                    audioPlayer.currentTime = 0
+                    audioPlayer.play()
+                    print("player restart")
+                }
+                print("sessiz mp3 durdu")
                 self.Notification(signal: 0, deviceName: "Audio Device"){ responseObject, error in
                     print("responseObject = \(String(describing: responseObject)); error = \(String(describing: error))")
                     return
@@ -312,7 +347,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             sessionRole: connectingSceneSession.role
         )
     }
-     // MARK: - StartReceiveMessage
+    // MARK: - StartReceiveMessage
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
@@ -340,7 +375,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         completionHandler(UIBackgroundFetchResult.newData)
         
     }
-     // MARK: - EndReceiveMessage
+    // MARK: - EndReceiveMessage
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")
     }
@@ -392,7 +427,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 }
 
 extension AppDelegate : MessagingDelegate {
-     // MARK: - StartRefreshToken
+    // MARK: - StartRefreshToken
     // [START refresh_token]
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {

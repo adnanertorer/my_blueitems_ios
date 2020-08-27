@@ -14,7 +14,6 @@
 		783D8E7924DC64CA001777EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 783D8E7824DC64CA001777EB /* Foundation.framework */; };
 		783D8E7B24DC64D1001777EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 783D8E7A24DC64D1001777EB /* CoreGraphics.framework */; };
 		7844B9E224F2B4C0006F4104 /* 15minutesofsilence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B9E124F2B4C0006F4104 /* 15minutesofsilence.mp3 */; };
-		7844B9E424F2B7B0006F4104 /* metallica.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B9E324F2B7B0006F4104 /* metallica.mp3 */; };
 		78ED783A24F3BF72007BF6FF /* myThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ED783924F3BF72007BF6FF /* myThread.swift */; };
 		E41444E324F50E4D00F005CA /* AudioControlThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41444E224F50E4D00F005CA /* AudioControlThread.swift */; };
 		E418D40D24E946AC00C8DE51 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E418D40C24E946AC00C8DE51 /* AVFoundation.framework */; };
@@ -52,7 +51,6 @@
 		783D8E7824DC64CA001777EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		783D8E7A24DC64D1001777EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7844B9E124F2B4C0006F4104 /* 15minutesofsilence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 15minutesofsilence.mp3; sourceTree = "<group>"; };
-		7844B9E324F2B7B0006F4104 /* metallica.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = metallica.mp3; sourceTree = "<group>"; };
 		78ED783924F3BF72007BF6FF /* myThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myThread.swift; sourceTree = "<group>"; };
 		DDC9DB085A203F0961046BDB /* Pods_Buzzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Buzzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41444E224F50E4D00F005CA /* AudioControlThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControlThread.swift; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 		E419310E24B74BCA0062F3D4 /* Buzzy */ = {
 			isa = PBXGroup;
 			children = (
-				7844B9E324F2B7B0006F4104 /* metallica.mp3 */,
 				7844B9E124F2B4C0006F4104 /* 15minutesofsilence.mp3 */,
 				E4AB69C724DFEA4300D08A88 /* GoogleService-Info.plist */,
 				78350E2424DE02AC00779BE5 /* tools */,
@@ -247,7 +244,6 @@
 				E419311C24B74BD40062F3D4 /* LaunchScreen.storyboard in Resources */,
 				E419311924B74BD40062F3D4 /* Assets.xcassets in Resources */,
 				7844B9E224F2B4C0006F4104 /* 15minutesofsilence.mp3 in Resources */,
-				7844B9E424F2B7B0006F4104 /* metallica.mp3 in Resources */,
 				E419311724B74BCA0062F3D4 /* Main.storyboard in Resources */,
 				E4AB69C824DFEA4300D08A88 /* GoogleService-Info.plist in Resources */,
 			);
