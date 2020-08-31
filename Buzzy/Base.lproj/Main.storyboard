@@ -18,6 +18,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x8U-ke-kvG">
                                 <rect key="frame" x="0.0" y="88" width="375" height="604.33333333333337"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="separatorColor" red="0.92529052499999997" green="0.44958794120000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ec6-A4-OtL" customClass="DeviceTableViewCell" customModule="Bazzy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
@@ -134,7 +135,7 @@
                                 </constraints>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="1au-HA-NMV" firstAttribute="leading" secondItem="rzr-fP-moy" secondAttribute="leading" constant="16" id="F97-VN-pft"/>
                             <constraint firstItem="rzr-fP-moy" firstAttribute="trailing" secondItem="1au-HA-NMV" secondAttribute="trailing" constant="16" id="c8R-D3-yMx"/>
@@ -389,6 +390,7 @@
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Your message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rbp-39-E9t">
                                 <rect key="frame" x="16" y="242" width="343" height="167"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="167" id="S0G-rY-NFS"/>
                                 </constraints>
@@ -400,13 +402,15 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CF0-TO-MYO">
                                 <rect key="frame" x="16" y="432" width="343" height="30"/>
-                                <state key="normal" title="Send"/>
+                                <state key="normal" title="Send feedback to Bazzy developers">
+                                    <color key="titleColor" red="0.93321198230000002" green="0.46120816469999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="sendMessage:" destination="2bE-H5-xWE" eventType="touchUpInside" id="xy6-mS-dNZ"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="HTV-vN-qOM" firstAttribute="centerX" secondItem="esJ-Zb-eNU" secondAttribute="centerX" id="0r4-Mt-m3W"/>
                             <constraint firstItem="NfT-aJ-oAr" firstAttribute="leading" secondItem="9x1-sB-Htx" secondAttribute="leading" id="4xF-cl-iH1"/>
@@ -665,17 +669,19 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0uz-kM-kI8">
-                                <rect key="frame" x="16" y="431" width="343" height="30"/>
+                                <rect key="frame" x="16" y="464" width="343" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Use it free for two weeks">
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <state key="normal" title="Try And Purchase">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
                                 <connections>
                                     <action selector="purchase:" destination="M7W-je-srD" eventType="touchUpInside" id="abM-mh-tSq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzz-QP-5b8">
-                                <rect key="frame" x="16" y="501" width="343" height="30"/>
+                                <rect key="frame" x="16" y="533" width="343" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Restore Purchase">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -685,17 +691,26 @@
                                     <action selector="restorePurchase:" destination="M7W-je-srD" eventType="touchUpInside" id="1St-79-V1K"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use it free for two weeks, then subscribe for $1.99 a month. You can cancel your subscription at any time." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Qs-3n-DXQ">
+                                <rect key="frame" x="16" y="378" width="343" height="54"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.92529052499999997" green="0.44958794120000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0uz-kM-kI8" firstAttribute="leading" secondItem="x13-XI-rTr" secondAttribute="leading" constant="16" id="3hK-GR-ske"/>
                             <constraint firstItem="x13-XI-rTr" firstAttribute="trailing" secondItem="0uz-kM-kI8" secondAttribute="trailing" constant="16" id="Q1d-gZ-YHy"/>
                             <constraint firstItem="fzz-QP-5b8" firstAttribute="top" secondItem="0uz-kM-kI8" secondAttribute="bottom" constant="40" id="Xnw-hN-jbJ"/>
-                            <constraint firstItem="0uz-kM-kI8" firstAttribute="top" secondItem="Wu0-kt-FLz" secondAttribute="bottom" constant="81" id="css-yz-7p9"/>
                             <constraint firstItem="Wu0-kt-FLz" firstAttribute="top" secondItem="x13-XI-rTr" secondAttribute="top" constant="146" id="eEy-bX-eQq"/>
                             <constraint firstItem="x13-XI-rTr" firstAttribute="trailing" secondItem="fzz-QP-5b8" secondAttribute="trailing" constant="16" id="en2-Q8-Wr2"/>
                             <constraint firstItem="fzz-QP-5b8" firstAttribute="leading" secondItem="x13-XI-rTr" secondAttribute="leading" constant="16" id="fgk-nj-uXd"/>
+                            <constraint firstItem="7Qs-3n-DXQ" firstAttribute="leading" secondItem="x13-XI-rTr" secondAttribute="leading" constant="16" id="l4u-65-AN1"/>
                             <constraint firstItem="Wu0-kt-FLz" firstAttribute="centerX" secondItem="5M0-HX-zjR" secondAttribute="centerX" id="pDt-WQ-aTO"/>
+                            <constraint firstItem="0uz-kM-kI8" firstAttribute="top" secondItem="7Qs-3n-DXQ" secondAttribute="bottom" constant="32" id="tIu-XJ-iBg"/>
+                            <constraint firstItem="x13-XI-rTr" firstAttribute="trailing" secondItem="7Qs-3n-DXQ" secondAttribute="trailing" constant="16" id="v4a-3U-fmb"/>
+                            <constraint firstItem="7Qs-3n-DXQ" firstAttribute="top" secondItem="Wu0-kt-FLz" secondAttribute="bottom" constant="28" id="vud-Tk-nth"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="x13-XI-rTr"/>
                     </view>

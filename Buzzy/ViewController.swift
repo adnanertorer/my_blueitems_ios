@@ -169,6 +169,7 @@ UITableViewDelegate{
                 self.present(alert, animated: true, completion: nil);
                 
             }else{
+                
                 selectedPeripheral = Array(myPeriperals)[indexPath.row].peripheral;
                 uuid = selectedPeripheral.identifier.uuidString;
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "peripheralView") as? PeripheralViewController

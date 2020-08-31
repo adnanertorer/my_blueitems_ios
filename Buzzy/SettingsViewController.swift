@@ -41,6 +41,7 @@ class SettingsViewController: UIViewController, UITabBarDelegate {
     @IBAction func stopBleProtection(_ sender: Any) {
         stopProtect = true
         protected = false
+        selectedPeripheral = nil
         for item in self.bleDevices{
             if let array1 = deviceArray.firstIndex(where: { $0.peripheral == item }){
                 deviceArray.remove(at: array1)

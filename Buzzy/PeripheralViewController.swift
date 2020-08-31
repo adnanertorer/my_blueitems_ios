@@ -224,17 +224,17 @@ CBCentralManagerDelegate, UITabBarDelegate {
             print("poweredOff")
             centralManager?.stopScan()
         case .poweredOn:
-            print("poweredOn")
-            let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: [infoServiceId])
-            for device in connectedDevices {
-                if !peripherals.contains(device){
-                    self.peripherals.append(device)
+           print("poweredOn")
+                let connectedDevices = centralManager.retrieveConnectedPeripherals(withServices: [infoServiceId])
+                for device in connectedDevices {
+                    if !peripherals.contains(device){
+                        self.peripherals.append(device)
+                    }
+                    if device.identifier.uuidString == selectedPeripheral.identifier.uuidString{
+                        centralManager.connect(device, options: .none)
+                    }
                 }
-                if device.identifier.uuidString == selectedPeripheral.identifier.uuidString{
-                    centralManager.connect(device, options: .none)
-                }
-            }
-        // centralManager?.scanForPeripherals(withServices: nil, options: nil)
+            // centralManager?.scanForPeripherals(withServices: nil, options: nil)
         @unknown default:
             print("Fatal errr")
         }
