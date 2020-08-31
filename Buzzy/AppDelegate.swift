@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
+        
+        
         // MARK: - FirebaseConfiguration
         FirebaseApp.configure();
         
@@ -73,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(handleRouteChange), name: AVAudioSession.routeChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleAudioInterruption), name: AVAudioSession.interruptionNotification, object: nil)
-        
         
         
         return true

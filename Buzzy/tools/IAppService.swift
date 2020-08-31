@@ -60,7 +60,7 @@ extension IAppService:SKPaymentTransactionObserver{
     
 }
 
-extension SKPaymentTransactionState{
+/*extension SKPaymentTransactionState{
     func status() -> String {
         switch self {
         case .deferred:
@@ -77,5 +77,5 @@ extension SKPaymentTransactionState{
             return "unknow"
         }
     }
-}
+} */
 

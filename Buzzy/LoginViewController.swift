@@ -15,11 +15,7 @@ import MBProgressHUD
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var btnAppleSign: UIButton!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setUpSignInAppleButton();
-        IAppService.shared.getProducts();
+    override func viewDidAppear(_ animated: Bool) {
         let loginStatus = UserDefaults.standard.bool(forKey: "loginStatus")
         if loginStatus {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -30,9 +26,14 @@ class LoginViewController: UIViewController {
             //let vc = self.storyboard?.instantiateViewController(withIdentifier: "deviceTableView");
             vc.modalPresentationStyle = .fullScreen;
             self.show(vc, sender: nil);
+        }else{
+            print("kullanici giris yapmamis")
         }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-
+        setUpSignInAppleButton();
         // Do any additional setup after loading the view.
     }
     

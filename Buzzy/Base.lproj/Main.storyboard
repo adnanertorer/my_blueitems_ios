@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MGi-tg-dI4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M7W-je-srD">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -110,7 +110,7 @@
         <!--Login View Controller-->
         <scene sceneID="uxC-PA-BEE">
             <objects>
-                <viewController id="MGi-tg-dI4" customClass="LoginViewController" customModule="Bazzy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginView" id="MGi-tg-dI4" customClass="LoginViewController" customModule="Bazzy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IVc-sB-23w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -648,6 +648,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8W6-VW-bDk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2408.8000000000002" y="136.69950738916256"/>
+        </scene>
+        <!--In App Purchase View Controller-->
+        <scene sceneID="Bnu-F5-YC6">
+            <objects>
+                <viewController storyboardIdentifier="purshaseView" id="M7W-je-srD" customClass="InAppPurchaseViewController" customModule="Bazzy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5M0-HX-zjR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-kt-FLz">
+                                <rect key="frame" x="67.666666666666686" y="190" width="240" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="KuU-Zs-xSL"/>
+                                    <constraint firstAttribute="height" constant="160" id="VmW-6C-5V5"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0uz-kM-kI8">
+                                <rect key="frame" x="16" y="431" width="343" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Use it free for two weeks">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="purchase:" destination="M7W-je-srD" eventType="touchUpInside" id="abM-mh-tSq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzz-QP-5b8">
+                                <rect key="frame" x="16" y="501" width="343" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Restore Purchase">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="purchase:" destination="M7W-je-srD" eventType="touchUpInside" id="Wn2-an-lht"/>
+                                    <action selector="restorePurchase:" destination="M7W-je-srD" eventType="touchUpInside" id="1St-79-V1K"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0uz-kM-kI8" firstAttribute="leading" secondItem="x13-XI-rTr" secondAttribute="leading" constant="16" id="3hK-GR-ske"/>
+                            <constraint firstItem="x13-XI-rTr" firstAttribute="trailing" secondItem="0uz-kM-kI8" secondAttribute="trailing" constant="16" id="Q1d-gZ-YHy"/>
+                            <constraint firstItem="fzz-QP-5b8" firstAttribute="top" secondItem="0uz-kM-kI8" secondAttribute="bottom" constant="40" id="Xnw-hN-jbJ"/>
+                            <constraint firstItem="0uz-kM-kI8" firstAttribute="top" secondItem="Wu0-kt-FLz" secondAttribute="bottom" constant="81" id="css-yz-7p9"/>
+                            <constraint firstItem="Wu0-kt-FLz" firstAttribute="top" secondItem="x13-XI-rTr" secondAttribute="top" constant="146" id="eEy-bX-eQq"/>
+                            <constraint firstItem="x13-XI-rTr" firstAttribute="trailing" secondItem="fzz-QP-5b8" secondAttribute="trailing" constant="16" id="en2-Q8-Wr2"/>
+                            <constraint firstItem="fzz-QP-5b8" firstAttribute="leading" secondItem="x13-XI-rTr" secondAttribute="leading" constant="16" id="fgk-nj-uXd"/>
+                            <constraint firstItem="Wu0-kt-FLz" firstAttribute="centerX" secondItem="5M0-HX-zjR" secondAttribute="centerX" id="pDt-WQ-aTO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="x13-XI-rTr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K8F-YW-JXk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3084" y="136.69950738916256"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jwj-PK-g7p">
